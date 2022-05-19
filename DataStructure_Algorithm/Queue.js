@@ -1,3 +1,7 @@
+//Queue
+//First In First Out (FIFO) structure
+
+
 class Node {
     constructor(value) {
       this.value = value;
