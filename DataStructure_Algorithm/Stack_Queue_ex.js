@@ -65,3 +65,41 @@ isParenthesisValid("() ()"); //true;
 //Time complexity: O(n)
 //processes a string character by character
 //n is the length of the string
+
+
+
+//3. Design a sortavle stack
+//having two stacks
+//one is sorted and the other is non sorted
+//when sorting, pop from the unsorted stack and any number smaller or bigger on the sorted stack is on top
+//sorted stack element should move back to unsorted because it is out of order
+//run a loop until the stack is all sorted
+function sortableStack(size) {
+    this.size = size;
+    this.mainStack = new Stack();
+    this.sortedStack = new Stack();
+
+    //initializing it with some random ints
+    for (var i = 0; i < this.size; i++) {
+        this.mainStack.push(Math.floor(Math.random() * 11));
+    }
+}
+
+sortableStack.prototype.sortStackDescending = () => {
+    while(!this.mainStack.isEmpty()) {
+        var temp = this.mainStack.pop();
+        
+        while(!this.sortedStack.isEmpty() && this.sortedStack.peek() < temp) {
+            this.mainStack.push(this.sortedStack.pop());
+        }
+        this.sortedStack.push(temp);
+    }
+}
+
+var ss = new sortableStack(10);
+console.log(ss); //[8,3,4,4,1,2,0,9,7,8]
+
+ss.sortStackDescending();
+console.log(ss.sortedStack); //[9,8,8,7,4,4,3,2,1]
+//Time complexity: O(n^2)
+//invloves a reshuffling of the elements between two stacks
