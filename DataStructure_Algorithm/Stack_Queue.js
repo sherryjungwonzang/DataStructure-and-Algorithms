@@ -1,72 +1,77 @@
 //combining Stack and Queue
+//1. Stack using Queues
+const { buffer } = require("stream/consumers");
 
-
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.next = null;
-  }
+//A queue can be made with two stacks
+function TwoStackQueue() {
+    this.inbox = new Stack();
+    this.outbox = new Stack();
 }
 
-class StackQueue {
-  constructor() {
-    this.first = null;
-    this.last = null;
-    this.size = 0;
-  }
+TwoStackQueue.prototype.enqueue = (val) => {
+    this.inbox.push(val);
+}
 
-  push(val) {
-    var newNode = new Node(val);
-
-    if (!this.first) {
-      this.first = newNode;
-      this.last = newNode;
-    } else {
-      var temo = this.first;
-      this.first = newNode;
-      this.first.next = temp;
+TwoStackQueue.prototype.dequeue = () => {
+    if (this.outbox.isEmpty) {
+        while(!this.inbox.isEmpty) {
+            this.outbox.push(this.inbox.pop());
+        }
     }
-    return ++this.size;
-  }
+    return this.inbox.pop();
+}
 
-  pop() {
-    if (!this.first) return null;
+var queue = new TwoStackQueue();
 
-    var temp = this.first;
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+queue.dequeue(); //1
+queue.dequeue(); //2
+queue.dequeue(); //3
+
+
+
+//2. Queue using stacks
+//A stack returns the last element
+//enqueue all the elements inside the main queue except for the last element
+function QueueStack() {
+    this.inbox = new Queue() //first stack
+}
+
+QueueStack.prototype.push = (val) => {
+    this.inbox.enqueue(val);
+}
+
+QueueStack.prototype.pop = () => {
+    var size = this.inbox.array.length - 1;
+    var counter = 0;
+    var bufferQueue = new Queue();
+
+    while(++counter <= size) {
+        bufferQueue.enqueue(this.inbox.dequeue());
+    }
     
-    if (this.first === this.last) {
-      this.last = null;
-    }
-    this.first = this.first.next;
-    this.size--;
-
-    return temp.value;
-  }
-
-  enqueue(val) {
-    var newNode = new Node(val);
-
-    if (!this.first) {
-      this.first = newNode;
-      this.last = newNode;
-    } else {
-      this.last.next = newNode;
-      this.last = newNode;
-    }
-    return ++this.size;
-  }
-
-  dequeue() {
-    if (!this.first) return null;
-
-    var temp = this.first;
-
-    if(this.first === this.last) {
-      this.last = null;
-    }
-    this.first = this.first.next;
-    this.size--;
-
-    return temp.value;
-  }
+    var popped = this.inbox.dequeue();
+    this.inbox = bufferQueue;
+    return popped
 }
+
+var stack = new QueueStack();
+
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+stack.push(5);
+
+console.log(stack.pop()); //5
+console.log(stack.pop()); //4
+console.log(stack.pop()); //3
+console.log(stack.pop()); //2
+console.log(stack.pop()); //1
+
+
+
+
+
