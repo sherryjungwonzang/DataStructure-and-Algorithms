@@ -1,4 +1,5 @@
-//Linear Probing
+//HashTable
+
 function HashTable(size) {
   this.size = size;
   this.keys = this.initArray(size);
@@ -18,6 +19,21 @@ HashTable.prototype.put = (key, value) => {
     hashedIndex = hashedIndex % this.size;
   }
 
+  //quadratic probing
+  while(this.keys[hashedIndex] != null) {
+    hashedIndex += Math.pow(squareIndex, 2);
+
+    hashedIndex
+    squareIndex++;
+  }
+
+  //double-hashing with linear probing
+  while(this.keys[hashedIndex] != null) {
+    hashedIndex++;
+
+    hashedIndex = hashedIndex % this.size;
+  }
+
   this.keys[hashedIndex] = key;
   this.values[hashedIndex] = value;
   this.limit++;
@@ -26,17 +42,40 @@ HashTable.prototype.put = (key, value) => {
 HashTable.prototype.get = (key) => {
   var hashedIndex = this.hash(key);
 
+  //linear probing
   while(this.keys[hashedIndex] != key) {
     hashedIndex++;
     hashedIndex = hashedIndex % this.size;
   }
+
+  //quadratic probing
+  var squareIndex = 1;
+  
+  while(this.keys[hashedIndex] != key) {
+    hashedIndex += Math.pow(squareIndex, 2);
+
+    hashedIndex = hashedIndex % this.size;
+    squareIndex++;
+  }
+
+  //double-hasing with linear probing
+  while(this.keys[hashedIndex] != key) {
+    hashedIndex++;
+
+    hashedIndex = hashedIndex % this.size;
+  }
+
   return this.values[hashedIndex];
 }
+
 
 HashTable.prototype.hash = (key) => {
   //check if int
   if (!Number.isInteger(key)) throw 'must be int';
     return key % this.size;
+
+    //double-hashing with linear probing
+    return this.secondHash(key % this.size);
 }
 
 HashTable.prototype.initArray = (size) => {
@@ -45,6 +84,12 @@ HashTable.prototype.initArray = (size) => {
     array.push(null);
   }
   return array;
+}
+
+//double-hashing with linear probing
+HashTable.prototype.secondHash = (hashedKey) => {
+  var R = this.size - 2;
+  return R - hashedKey % R;
 }
 
 
@@ -59,6 +104,14 @@ exampletable.put(85, "happy");
 exampletable.put(98, "sad");
 
 
-//OUTCOME should be
+//OUTCOME of linear probing should be
 //Keys: [85, 98, null, null, null, null, 7, 20, 33, 46, 59, 72]
 //Values: ['happy', 'sad', null, null, null, null, null, 'hi', 'hello', 'sunny', 'weather', 'wow', 'forty']
+
+//OUTCOME of quadratic probing should be
+//Keys: [null, null, null, 85, 72, null, 98, 7, 20, null, 59, 46, 33]
+//Values: [ null, null, null, 'happy', 'forty', null, 'sad', 'hi', 'hello', null, 'wow', 'weather', 'sunny']
+
+//OUTCOME of double-hashing with linear probing should be
+//Keys: [null, 59, 20, 85, 98, 72, null, 7, null, 46, null, 33, null]
+//Values: [ null, 'wow', 'hello', 'happy', 'sad', 'forty', null, 'hi', null, 'weather', null, 'sunny', null]
