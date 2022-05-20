@@ -40,4 +40,28 @@ cashier.deliverOrder(); //Peter, your Drink is ready!
 
 
 
-//2. 
+//2. Design a parenthesis validation checker using a stack
+//((())) is a valid parenthesis set
+//stack can be used to check the validity of parenthesis by storing the left parenthesis
+//using push() and triggering pop() when the right parenthesis is seen
+//stack to store the most recent parenthesis
+function isParenthesisValid(validationString) {
+    var stack = new Stack();
+
+    for(var pos = 0; pos < validationString.length; pos++) {
+        var currentChar = validationString.charAt(pos);
+        if(currentChar == "(") {
+            stack.push(currentChar);
+        } else if (currentChar == ")") {
+            if (stack.isEmpty()) return false;
+            stack.pop();
+        }
+    }
+    return stack.isEmpty();
+}
+isParenthesisValid("((()"); //false;
+isParenthesisValid("(((("); //false;
+isParenthesisValid("() ()"); //true;
+//Time complexity: O(n)
+//processes a string character by character
+//n is the length of the string
