@@ -1,52 +1,64 @@
-class HashTable {
-  constructor(size) {
-    this.data = new Array(size);
-  }
-  
-  _hash(key) {
-    let hash = 0;
-    for (let i = 0; i < key.length; i++) {
-      hash = (hash + key.charCodeAt(i) * i) % this.data.length
-    }
-    return hash;
-  }
-  
-  set(key, val) {
-    let hashKey = this._hash(key);
-    if (!this.data[hashKey]) {
-      this.data[hashKey] = [];
-    }
-    this.data[hashKey].push([key, val]);
-    
-    console.log(this.data);
-    return this.data;
-  }
-  
-  get(key) {
-    let hashKey = this._hash(key);
-    let bucket = this.data[hashKey];
-  
-    //console.log(bucket)
-    if (bucket) {
-      for (let i = 0; i < bucket.length; i++) {
-        if (bucket[i][0] === key) {
-          return bucket[i][1];
-        }
-      }
-    }
-    return undefined;
-  }
+//Linear Probing
+function HashTable(size) {
+  this.size = size;
+  this.keys = this.initArray(size);
+  this.values = this.initArray(size);
+  this.limit = 0;
 }
 
-const myHashTable = new HashTable(2);
-myHashTable.set('orange', 10000);
-myHashTable.set('blackberry', 1200);
-myHashTable.set('lemon', 1214);
-myHashTable.set('orange');
+HashTable.prototype.put = (key, value) => {
+  if (this.limit >= this.size) throw 'hash table is full';
 
-//collision will happen
-//to solve this
-//Map
-//Set
-const a = new Map();
-const b = new Set();
+  var hashedIndex = this.hash(key);
+
+  //linear probing
+  while(this.keys[hashedIndex] != null) {
+    hashedIndex++;
+
+    hashedIndex = hashedIndex % this.size;
+  }
+
+  this.keys[hashedIndex] = key;
+  this.values[hashedIndex] = value;
+  this.limit++;
+}
+
+HashTable.prototype.get = (key) => {
+  var hashedIndex = this.hash(key);
+
+  while(this.keys[hashedIndex] != key) {
+    hashedIndex++;
+    hashedIndex = hashedIndex % this.size;
+  }
+  return this.values[hashedIndex];
+}
+
+HashTable.prototype.hash = (key) => {
+  //check if int
+  if (!Number.isInteger(key)) throw 'must be int';
+    return key % this.size;
+}
+
+HashTable.prototype.initArray = (size) => {
+  var array = [];
+  for (var i = 0; i < size; i++) {
+    array.push(null);
+  }
+  return array;
+}
+
+
+var exampletable = new HashTable(13);
+exampletable.put(7, "hi");
+exampletable.put(20, "hello");
+exampletable.put(33, "sunny");
+exampletable.put(46, "weather");
+exampletable.put(59, "wow");
+exampletable.put(72, "forty");
+exampletable.put(85, "happy");
+exampletable.put(98, "sad");
+
+
+//OUTCOME should be
+//Keys: [85, 98, null, null, null, null, 7, 20, 33, 46, 59, 72]
+//Values: ['happy', 'sad', null, null, null, null, null, 'hi', 'hello', 'sunny', 'weather', 'wow', 'forty']
