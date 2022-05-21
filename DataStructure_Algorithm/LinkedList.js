@@ -4,15 +4,17 @@
 //data and next.data
 //data: the value for the linked list
 //next: a pointer to another instance
+function SinglyLinkedList() {
+    this.head = null; //default as null before inserting any element into the linked list
+    this.size = 0;
+}
+
 function SinglyLinkedListNode(data) {
     this.data = data; 
     this.next = null;
 }
 
-function SinglyLinkedList() {
-    this.head = null; //default as null before inserting any element into the linked list
-    this.size = 0;
-}
+
 SinglyLinkedList.prototype.isEmpty = () => {
     return this.size == 0;
 }
