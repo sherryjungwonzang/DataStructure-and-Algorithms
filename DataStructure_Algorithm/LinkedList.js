@@ -37,8 +37,8 @@ SinglyLinkedList.prototype.insert = (value) => {
 }
 var slll = new SinglyLinkedList();
 slll.insert(1); //linkedlist is now 1 -> null
-slll.insert(2); //linkedlist is now 12 -> 1 -> null
-slll.insert(3); //linkedlist is now 20 -> 12 -> 1 -> null
+slll.insert(12); //linkedlist is now 12 -> 1 -> null
+slll.insert(20); //linkedlist is now 20 -> 12 -> 1 -> null
 //Time Complexity: O(1)
 //no loops or traversal is required
 
