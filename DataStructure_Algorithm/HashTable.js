@@ -1,4 +1,8 @@
 //HashTable
+//Prime Number Hashing
+//by using the modulus operator with prime numbers
+//the modulus by prime numbers guarantees the nest distribution for a fixed size
+
 
 function HashTable(size) {
   this.size = size;
