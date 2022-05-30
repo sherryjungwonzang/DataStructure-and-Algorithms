@@ -4,7 +4,12 @@
 //Base case
 //there are no recursive function calls
 
-//ex: count down to zero
+//Divide-and-Conquer method
+//when a problem is solved by solving all of its smaller components
+//to make the problem smaller to reach the base case
+
+//ex1: count down to zero 
+//Base Case Solution
 //when n is smaller or equal to 0
 //if a negative number is given as the input, it will not print that number
 function countDownToZero(n) {
@@ -20,11 +25,7 @@ function countDownToZero(n) {
 countDownToZero(12);
 
 
-//Divide-and-Conquer method
-//when a problem is solved by solving all of its smaller components
-//to make the problem smaller to reach the base case
-
-//ex: Fibonacci sequence
+//ex2: Fibonacci sequence
 //1,1,2,3,5,8,13,21...
 
 //1. Iterative Solution
@@ -54,6 +55,11 @@ function getNthFibo(n) {
         return getNthFibo(n - 1) + getNthFibo(n - 2);
     }
 }
+getNthFibo(3);
+//Time Complexity: O(1)
+//Recurrence Relations
+//for Base case, T(n) = O(1)
+//for recursive case, T(n) = T(n-1) + T(n-2) + O(1)
 
 //3. Divide and conquer Solution
 //Tail recursion
@@ -74,6 +80,10 @@ function getNthFiboBetter(n, lastlast, last) {
 //executes n times because it is decremented by n-1 each time with only single recursive calls
 //Space Complexity: O(n)
 //because of the stack call used for this function
+
+
+//ex3. Pascal's Triangle
+//a triangle whose element value is the summation of its top(left and right) calues
 
 //Base case Solution
 //the top element: row=1, col=1 is 1
