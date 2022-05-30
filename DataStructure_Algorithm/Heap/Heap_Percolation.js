@@ -135,3 +135,35 @@ console.log(mh2.poll()); //5
 console.log(mh2.poll()); //1
 
 
+//Heap Sort
+//to get a sorted array-> pop() on the heap until it is empty and store the popped objects
+//Ascending Order Sort (Min Heap)
+var minHeapExample = new MinHeap();
+minHeapExample.add(12);
+minHeapExample.add(2);
+minHeapExample.add(23);
+minHeapExample.add(4);
+minHeapExample.add(13);
+minHeapExample.items; //[2,4,23,12,13]
+
+console.log(minHeapExample.poll()); //2
+console.log(minHeapExample.poll()); //4
+console.log(minHeapExample.poll()); //12
+console.log(minHeapExample.poll()); //13
+console.log(minHeapExample.poll()); //23
+
+//Descending Order Sort (Min Heap)
+var maxHeapExample = new MaxHeap();
+maxHeapExample.add(12);
+maxHeapExample.add(2);
+maxHeapExample.add(23);
+maxHeapExample.add(4);
+maxHeapExample.add(13);
+maxHeapExample.items; //[23,13,12,2,4]
+
+console.log(maxHeapExample.poll()); //23
+console.log(maxHeapExample.poll()); //13
+console.log(maxHeapExample.poll()); //12
+console.log(maxHeapExample.poll()); //2
+console.log(maxHeapExample.poll()); //4
+
