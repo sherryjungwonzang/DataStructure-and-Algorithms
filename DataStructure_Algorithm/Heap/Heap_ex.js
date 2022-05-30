@@ -103,3 +103,9 @@ function getKthBiggestElement (array, k) {
 getKthBiggestElement(array1, 2); //23
 getKthBiggestElement(array1, 1); //40
 getKthBiggestElement(array1, 7); //2
+//Time Complexity: O(klog2(n))
+//n is the size of the array
+//.pop() costs O(log2(n)) and it has to be done k times
+
+//Space Complexity: O(n)
+//to store the heap array
