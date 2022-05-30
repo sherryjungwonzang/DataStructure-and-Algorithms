@@ -50,7 +50,7 @@ MinHeap.prototype.poll = () => {
 
 MinHeap.prototype.bubbleDown = () => {
     var index = 0;
-    while(this.leftChild(index) && this.leftChild(index) < this.items[index]) {
+    while(this.leftChild(index) && this.leftChild(index) < this.items[index] || this.rightChild(index) < this.items[index]) {
         var smallerIndex = this.leftChildIndex(index);
         if (this.rightChild(index) && this.rightChild(index) < this.items[smallerIndex]) {
             //if right is smaller, right swaps
@@ -104,7 +104,7 @@ MaxHeap.prototype.poll = () => {
 
 MaxHeap.prototype.bubbleDown = () => {
     var index = 0;
-    while(this.leftChild(index) && this.leftChild(index) < this.items[index]) {
+    while(this.leftChild(index) && this.leftChild(index) < this.items[index] || this.rightChild(index) < this.items[index]) {
         var smallerIndex = this.leftChildIndex(index);
         if (this.rightChild(index) && this.rightChild(index) < this.items[smallerIndex]) {
             //if right is smaller, right swaps
