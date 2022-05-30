@@ -130,3 +130,7 @@ console.log(isPalindromeRecursive('iii')); //true
 console.log(isPalindromeRecursive('ii')); //true
 console.log(isPalindromeRecursive('aibohphobia')); //true
 console.log(isPalindromeRecursive('racecar')); //true
+//Time Complexity: O(n)
+//Space Complexity: O(n)
+//because of the recursive call stack
+//call stack remains part of memory even if it is not declaring a variable or being stored inside a data structure
