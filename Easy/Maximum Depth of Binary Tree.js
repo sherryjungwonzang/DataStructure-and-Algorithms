@@ -19,6 +19,21 @@ var maxDepth = (root) => {
 };
 
 
+//another solution of DFS
+const maxDepth = (root) => {
+    if (!root) return 0;
+
+    //maximum left depth
+    const leftMaxDepth = maxDepth(root.left);
+
+    //maximum right depth
+    const rightMaxDepth = maxDepth(root.right);
+
+    //add the root node itself
+    return Math.max(leftMaxDepth, rightMaxDepth) + 1;
+}
+
+
 //Approach 2: BFS-level order traversal
 var maxDepth = (root) => {
     if (!root) return 0;
@@ -42,4 +57,51 @@ var maxDepth = (root) => {
         queue = children; //set the traversal position to children array
     }
     return depth;
+}
+
+
+//another solution of BFS
+const maxDepth = (root) => {
+    if (!root) return 0;
+
+    const queue = [root];
+    let max = 1;
+
+    while(queue.length) {
+        const len = queue.length;
+
+        //traverse level by level
+        for (let i = 0; i < len; i++) {
+            const node = queue.shift(); //shift(): removes the first element from an array and returns that removed element
+
+            //traverse next level
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+        }
+
+        //after each level traversal, increment max depth by 1
+        max++;
+    }
+    return max;
+}
+
+
+
+//Approach 3: Recursion
+const maxDepth = (root) => {
+    if (!root) return 0;
+
+    //beginning with first node
+    let max = 1;
+
+    const traverse = (root, depth = 1) => {
+        max = Math.max(max, depth); //update max
+
+        //traverse left/right and increment depth by 1
+        if (root.left) traverse(root.left, depth+1);
+        if (root.right) traverse(root.right, depth+1);
+    };
+
+    traverse(root);
+    return max;
 }
