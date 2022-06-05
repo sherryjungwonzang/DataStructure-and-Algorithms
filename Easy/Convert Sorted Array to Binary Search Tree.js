@@ -2,6 +2,12 @@
 //given an integer array: nums
 //convert to a height-balanced binary search tree
 //height balanced binary search tree: the depth of the two subtrees of every node never differes by more than one
+function TreeNode(val, left, right) {
+    this,val = (val === undefined ? 0 : val)
+    this.left = (left === undefined ? null : left)
+    this,right = (right === undefined ? null : right)
+}
+
 var sortedArrayToBST = (nums) => {
     if (!nums.length) return null;
 
