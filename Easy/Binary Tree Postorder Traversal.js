@@ -1,6 +1,6 @@
 //Binary Tree Postorder Traversal
 //given the root of a binary tree
-//return the preorder traversal of its nodes' values
+//return the postorder traversal of its nodes' values
 
 //Approach 1: Iterative
 var postorderTraversal = (root) => {
