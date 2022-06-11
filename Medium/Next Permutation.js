@@ -1,3 +1,7 @@
+//Next Permutation
+//permutation of an array of integers is an arrangement of its members into a sequence or linear order
+
+
 //Approach:
 //1. Find the first decresing index moving from end to start
 //2. Swap the decreasing index num with the next large num to its right
