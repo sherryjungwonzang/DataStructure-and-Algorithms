@@ -32,7 +32,7 @@ var addTwoNums = (l1, l2) => {
     }
 
     //adding a new node onto linked list
-    head.next = new listNode(sum); //passing the valus of sum
+    head.next = new ListNode(sum); //passing the valus of sum
     head = head.next;
     sum = carry;
     carry = 0;
