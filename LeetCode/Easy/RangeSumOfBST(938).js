@@ -23,5 +23,12 @@ var rangeSumBST = (root, low, high) => {
 //TC: O(n) - visiting each node once
 //SC: O(n) - using a recursive call stack
 rangeSumBST([10,5,15,3,7,null,18], 7, 15); //32 - Nodes 7, 10, and 15 are in the range [7, 15] | 7 + 10 + 15 = 32
+//     10
+//   5   15
+// 3  7    18
 
 rangeSumBST([10,5,15,3,7,13,18,1,null,6], 6, 10); //23 - Nodes 6, 7 and 10 are in the range [6, 10] | 6 + 7 + 10 = 23
+//        10
+//     5     15
+//  3   7  13  18
+//1   6
