@@ -68,7 +68,7 @@ var nQueens = (n) => {
   }
   recurse(0);
 
-  return recurse;
+  return res;
 }
 nQueens(4); //[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]] - There exist two distinct solutions to the 4-queens puzzle
 
