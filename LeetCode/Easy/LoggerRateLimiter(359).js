@@ -14,12 +14,14 @@ var Logger = () => {
 }
 
 Logger.prototype.shouldPrintMessage = (timestamp, message) => {
+  //if the message is in the map
   if (this.map.has(message)) {
     //need an additional check
     if(timestamp < this.map.get(message) + 10) {
       return false;
     }
   }
+  //otherwise - need to add the message and timestamp value
   this.map.set(message, timestamp);
 
   return true;
