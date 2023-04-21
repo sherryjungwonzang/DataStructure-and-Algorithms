@@ -12,7 +12,7 @@ var nQueens2 = (n) => {
   //helper function - isValid()
   //to check whether the column has an attacking queen 
   //whether postivie diagonal or negative diagonal
-  const isValid = (r, c) => !(col.has(c) || posDiag.has(r + c) || negDiag(r - c));
+  const isValid = (r, c) => !(col.has(c) || posDiag.has(r + c) || negDiag.has(r - c));
 
   //for adding the queen to its position
   //within the positive diagonal and the negative diagonal
