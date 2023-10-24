@@ -52,7 +52,14 @@ circularGame(5, 2); //3
 //[1, 3, 5] - removing the first value within the queue
 //[3, 5] - move along by k-1 friends and shift to the end
 //[5, 3] - removing the first value within the queue
-//[5]
+//[3]
 
 circularGame(6, 5); //1
 //The friends leave in this order: 5, 4, 6, 2, 3. The winner is friend 1.
+//The friends leave in this order: 5, 4, 6, 2, 3. The winner is friend 1.
+//[1, 2, 3, 4, 5, 6] - shift 4 and add to the end
+//[1, 2, 3, 5, 6, 4] - removing the fourth value within the queue '5'
+//[1, 2, 3, 6, 4] - move along by k-1 friends and shift to the end
+//[1, 2, 3, 4, 6] - removing the fourth value within the queue '4'
+//[1, 2, 3, 6] - move along by k-1 friends and shift to the end
+//[1, 2, 3] - removing the fourth value within the queue '6'
