@@ -29,3 +29,22 @@ missingNumber([0,1]); //2 - there are 2 numbers: [0,2] | 2 is the missing number
 //xor = 2
 //-> 2 ^ 1 ^ 1 = 2
 //xor = 2
+
+missingNumber([9,6,4,2,3,5,7,0,1]); //8 - there are 9 numbers, so all numbers are in the range [0,9] |  8 is the missing number in the range since it does not appear in nums
+//xor = 9
+//-> 9 ^ 0 ^ 9 = 0
+//xor = 0
+//-> 0 ^ 1 ^ 6 = 7
+//xor = 7
+//-> 7 ^ 2 ^ 4 = 1
+//xor = 1
+//-> 1 ^ 3 ^ 2 = 0
+//xor = 0
+//-> 0 ^ 4 ^ 3 = 7
+//xor = 7
+//-> 7 ^ 5 ^ 5 = 7
+//xor = 6
+//-> 6 ^ 7 ^ 0 = 1
+//xor = 1
+//-> 1 ^ 8 ^ 1 = 8
+//missing xor = 8
