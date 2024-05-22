@@ -1,0 +1,68 @@
+//994. Rotting Oranges
+//given an m x n grid - where each cell can have one of three values:
+//0 - representing an empty cell
+//1 - representing a fresh orange
+//2 - representing a rotten orange
+
+//every minute, any fresh orange that is 4-directionallt adjacent to a rotten orange becomes rotten
+//return the minimum number of minutes that must elapse until no cell has a fresh oranges
+//if this is impossible, return -1
+
+//Approach:
+//using queue with BFS
+var rottingOranges = (grid) => {
+    let oranges = 0;
+    let time = 0;
+    let queue = [];
+
+    let m = grid.length - 1;
+    let n = grid[0].length - 1;
+
+    for (let r = 0; r < grid.length; r++) {
+        for (let c = 0; c < grid[r].length; c++) {
+            if (grid[r][c] === 1) {
+                oranges++; //collecting fresh oranges count
+            } else if (grid[r][c] === 2) {
+                queue.push([r, c, 0]); //putting into the queue of rotten oranges
+            }
+        }
+    }
+
+    let dir = [ [0, 1], [1, 0], [0, -1], [-1, 0] ];
+
+    //BFS
+    while(queue.length && oranges) {
+        let [currR, currC, mins] = queue.shift();
+
+        //if it is fresh oranges - decrement oranges and mark it as rotten
+        if (grid[currR][currC] === 1) {
+            grid[currR][currC] = 2;
+            oranges--; //when oranges is 0 - meaning all oranges are rotten
+            time = mins;
+        }
+
+        //looping nextR and nextC
+        for (let [x, y] of dir) {
+            let [nextR, nextC] = [currR + x, currC, y];
+
+            //inbound checking
+            if (nextR < 0 || nextR > m || nextC < 0 || nextC > n) continue;
+
+            //checking fresh oranges around rotten oranges
+            if (grid[nextR][nextC] === 1) {
+                queue.push([nextR, nextC, mins + 1]);
+            }
+        }
+    }
+    return oranges ? -1 : time;
+}
+//TC: O(m x n) x 4 - taking up every cell in all 4 directions
+//SC: O(m x n) - all oranges are rotten so all elements goes into the queue
+rottingOranges([[2,1,1], [1,1,0], [0,1,1]]); //4
+
+rottingOranges([[2,1,1], [0,1,1], [1,0,1]]); //-1
+//the orange in the bottom left corner (row 2, col 0) is never rotten
+//because rotting only happens 4-directionally
+
+rottingOranges([[0,1]]); //0
+//since there are already no fresh oranges at minute 0    
