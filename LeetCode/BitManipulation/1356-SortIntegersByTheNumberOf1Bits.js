@@ -64,4 +64,4 @@ sortByBits([0,1,2,3,4,5,6,7,8]); //[0,1,2,4,8,3,5,6,7]
 //map = { 0: 0 | 1: 1 | 2: 1 | 3: 2 | 4: 1 | 5: 2 | 6: 2 | 7: 3 | 8: 1 }
 
 sortByBits([1024,512,256,128,64,32,16,8,4,2,1]); //[1,2,4,8,16,32,64,128,256,512,1024]
-//all integers have
+//all integers have 1 bit in the binary representation, you should just sort them in ascending order
