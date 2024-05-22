@@ -99,12 +99,3 @@ pacificAtlantic([[1,2,2,3,5], [3,2,3,4,4], [2,4,5,3,1], [6,7,1,4,5], [5,1,1,2,4]
 //       [3,1] -> [4,1] - Atlantic Ocean
 //[4,0]: [4,0] - Pacific Ocean
 //       [4,0] - Atlantic Ocean
-
-
-
-
-
-//286. Walls and Gates
-//given an m x n grid 'rooms' initialized with these three possible values:
-//-1:  a wall or an obstacle
-//0:  a gate
