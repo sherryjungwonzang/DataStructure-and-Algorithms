@@ -13,7 +13,7 @@
 var targetSum = (nums, target) => {
   //initial setting DP
   //initial sum to 0 and amount to 1
-  let count = new Map([0, 1]);
+  let count = new Map([[0, 1]]);
 
   //DP
   for (let num of nums) {
