@@ -37,6 +37,10 @@ var findWinnerTicTacToe = (moves) => {
         let row = moves[i][0];
         let col = moves[i][1];
 
+        //filling the each array
+        rows[row] +=  counter;
+        cols[col] +=  counter;
+
         //checking diagonal or antidiagonal
         if (row === col) diagonal += counter; //main diagonal
         if (row + col === 2) antiDiagonal += counter; //antidiagonal: row + col = 2
