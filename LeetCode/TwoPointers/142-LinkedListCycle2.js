@@ -13,24 +13,22 @@ var linkedListCycle2 = (head, post) => {
     let slow = head;
     let fast = head;
 
-    while (fast && fast.next) {
+    while (fast && fast.next && fast.next.next) {
         slow = slow.next;
         fast = fast.next.next;
 
         //cycle
-        if (slow === fast) break;
+        if (slow === fast) {
+            slow  = head;
+
+            while(slow !== fast) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            return slow;
+        }
     }
-
-    //no cycle
-    if (!fast || !fast.next) return null;
-
-    let curr = head;
-    while (curr !== fast) {
-        curr = curr.next;
-        fast = fast.next;
-    }
-
-    return curr;
+    return null; //no cycle
 }
 //TC: O(n) - the length of the LL
 //SC: O(1)
