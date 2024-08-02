@@ -13,17 +13,18 @@
 //Approach:
 //using two pointers
 var removeDuplicatesSortedArray2 = (nums) => {
-    //base case 
-    if (nums.length === 0) return 0;
+    //base case
+    if (!nums.length) return 0;
 
     let left = 0;
     for (let right = 1; right < nums.length; right++) {
-        if (nums[left] !== nums[right]) { //new unique is found
-            nums[++left] = nums[right]; //replaced
+        if (nums[right] !== nums[left] || (nums[right] === nums[left] && nums[left] !== nums[left - 1])) {
+            left++;
+            nums[left] = nums[right]; //replacing
         }
     }
 
-    return left + 1; //the length of the modified array
+    return left + 1;
 }
 //TC: O(n)
 //SC: O(1)
