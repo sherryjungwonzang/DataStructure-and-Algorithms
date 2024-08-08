@@ -11,22 +11,22 @@
 //using 2D Array
 //setting the first row and column as 1 - there is only one way of getting to that position
 var uniquePaths = (m, n) => {
-  //create 2D DP array - row is m, col is n
-  let dp = Array.from(Array(m), () => new Array(n));
+    let dp = Array.from(Array(m), () => new Array(n));  //2D DP array
+    let x = dp.length;
+    let y = dp[0].length;
 
-  //looping through the first row and setting as 1
-  for (let i = 0; i < dp.length; i++) dp[i][0] = 1;
+    //looping first row and col with setting as 1 - only one way of getting to that position
+    for (let i = 0; i < x; i++) dp[i][0] = 1;
+    for (let i = 0; i < y; i++) dp[0][i] = 1;
 
-  //looping through the first column and setting as 1
-  for (let i = 0; i < dp[0].length; i++) dp[0][i] = 1;
-
-  //looping through the rest of DP array
-  for (let i = 1; i < dp.length; i++) {
-    for (let j = 1; j < dp[0].length; j++) {
-      dp[i][j] = dp[i - 1][j] + dp[i][j -1];
+    //the rest of DP
+    for (let i = 1; i < x; i++) {
+        for (let j = 1; j < y; j++) {
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
     }
-  }
-  return dp[m - 1][n - 1];
+
+    return dp[m - 1][n - 1];
 }
 //TC: O(m * n) - traversing every single value within the grid
 //SC: O(m * n) - storing new values within DP Array
