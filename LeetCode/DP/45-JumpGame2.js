@@ -12,26 +12,40 @@
 //the max reach is calculated by comparing the curr max and the sum of the curr index and jump length from that index
 //each jump is made at the most strategic point, extending the reach as far as possible within the min num of jumps
 var jumpGame2 = (nums) => {
-  //base case
-  if (nums.length === 1) return 0;
+    let dp = new Array(nums.length).fill(Infinity);
 
-  let prev = 0; //the furthest position reached from the prev jumps
-  let max = 0; 
-  let jump = 0;
+    //base case
+    dp[0] = 0;
 
-  for (let i = 0; i < nums.length - 1; i++) {
-    max = Math.max(max, i + nums[i]);
-
-    if (i === prev) { //indicating that a new jump must be made to go further
-      jump++;
-      prev = max;
+    //looping - from 0 to i - 1 index
+    for (let i = 1; i < nums.length; i++) {
+        for (let j = 0; j < i; j++) {
+            if (nums[j] >= i - j) dp[i] = Math.min(dp[i], dp[j] + 1); //for one more jump from j_th index
+        }
     }
-  }
-  return jump;
+
+    return dp[nums.length - 1];
 }
-//TC: O(n)
-//SC: O(1)
 jumpGame2([2,3,1,1,4]); //2 - the min number of jumps to reach the last index is 2
-//jump 1 step from index 0 to 1, then 3 steps to the last index
+//[2, 3, 1, 1, 4]
+//DP = [ 0, Infi, Infi, Infi, Infi ]
+
+//i = 1, j = 0 || 2 > 1 -> min(Infi, 0 + 1) = 1
+//DP = [ 0, 1, Infi, Infi, Infi ]
+
+//i = 2, j = 0 || 2 = 2 -> min(Infi, 0 + 1) = 1
+//i = 2, j = 1 || 3 > 1 -> min(Infi, 1 + 1) = 2
+//DP = [ 0, 1, 1, Infi, Infi ]
+
+//i = 3, j = 0 || 2 < 3
+//i = 3, j = 1 || 3 > 2 -> min(Infi, 1 + 1) = 2
+//i = 3, j = 2 || 1 = 1 -> min(Infi, 1 + 1) = 2
+//DP = [ 0, 1, 1, 2, Infi ]
+
+//i = 4, j = 0 || 2 < 4
+//i = 4, j = 1 || 3 = 3 -> min(Infi, 1 + 1) = 2
+//i = 4, j = 2 || 1 < 2 
+//i = 4, j = 3 || 1 = 1 -> min(Infi, 2 + 1) = 3
+//DP = [ 0, 1, 1, 2, 2 ]
 
 jumpGame2([2,3,0,1,4]); //2
