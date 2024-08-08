@@ -13,47 +13,40 @@
 //Approach:
 //using DP - upon sub-problems
 var uniquePaths2 = (obstacleGrid) => {
-  //row
-  let m = obstacleGrid.length;
-  //col
-  let n = obstacleGrid[0].length;
+    let  m = obstacleGrid.length; //row
+    let  n = obstacleGrid[0].length; //col
+    let dp = Array.from(Array(m),  () => Array(n).fill(0));
 
-  //creating a DP array
-  let dp = Array.from(Array(m), () => Array(n).fill(0));
+    //looping through rows
+    for (let i = 0; i < m; i++) {
+        //checking value in the cell
+        if (obstacleGrid[i][0] === 1) { 
+            dp[i][0] = 0; //obstacle in the grid
+            break;
+        } else { //no obstacle
+            dp[i][0] = 1;
+        }
+    };
 
-  //loop through rows
-  for (let i = 0; i < m; i ++) {
-    //check to see value in the cell
-    if (obstacleGrid[i][0] === 1) {
-      dp[i][0] = 0; //when there is an obstacle in the grid
-      break;
-    } else { //no obstacle
-      dp[i][0] = 1;
+    //looping through cols
+    for (let j = 0; j < n; j++) { 
+        if (obstacleGrid[0][j] === 1) {
+            dp[0][j] = 0;
+            break;
+        } else {
+            dp[0][j] = 1;
+        }
+    };
+
+    //populate the rest of DP array grid
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            if (obstacleGrid[i][j] === 1)  dp[i][j] = 0; //obstacle
+            else dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+        }
     }
-  }
 
-
-  //loop through columns
-  for (let j = 0; j < n; j++) {
-    if (obstacleGrid[0][j] === 1) { //obstacle
-      dp[0][j] = 0;
-      break;
-    } else { //no obstacle
-      dp[0][j] = 1;
-    }
-  }
-
-  //populate the rest of DP array grid
-  for (let i = 1; i < m; i++) {
-    for (let j = 1; j < n; j++) {
-      if (obstacleGrid[i][j] === 1) { //obstacle
-        dp[i][j] = 0;
-      } else {
-        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-      }
-    }
-  }
-  return dp[m - 1][n - 1];
+    return dp[m - 1][n - 1];
 }
 uniquePaths2([[0,0,0], [0,1,0], [0,0,0]]); //2 - There is one obstacle in the middle of the 3x3 grid above.
 //There are two ways to reach the bottom-right corner: 1. Right -> Right -> Down -> Down, 2. Down -> Down -> Right -> Right
