@@ -9,34 +9,58 @@
 
 //Approach:
 //using DP array and two separate arrays to store the value of points and earned
-//'points' Array: 
 var deleteAndEarn = (nums) => {
-  //base case
-  if (nums.length === 1) return nums[0];
+    //base case
+    if (nums.length === 1) return nums[0];
 
-  var points = new Array(Math.max(...nums) + 1).fill(0);
-  for (let i = 0; i < nums.length; i++) {
-    points[nums[i]] += nums[i];
-  }
+    //first array - to store the sum of each number
+    let points = new Array (Math.max(...nums) + 1).fill(0);
+    for (let i = 0; i < nums.length; i++) {
+        points[nums[i]] += nums[i];
+    }
 
-  var earned = new Array(...points).fill(0);
-  earned[1] = points[1];
-  for (let i = 2; i < points.length; i++) {
-    //storing at the current position (current + earned 2 positions before, earned 1 position before)
-    earned[i] = Math.max(earned[i - 1], earned[i - 2] + points[i]); 
-  }
+    //DP - second array
+    let earned = new Array(...points).fill(0);
 
-  return Math.max(earned[earned.length - 1], earned[earned.length - 2]);
+    //base case
+    earned[1] = points[1];
+
+    for (let i = 2; i < points.length; i++) {
+        //to check the max value between picking [i - 1]'s sum and [i and i + 1]'s sum
+        earned[i] = Math.max(earned[i - 1], earned[i - 2] + points[i]);
+    }
+
+    return Math.max(earned[earned.length - 1], earned[earned.length - 2]);
 }
 //TC: O(n)
 //SC: O(n)
-deleteAndEarn([3,4,2]); //6 
-//Delete 4 to earn 4 points. Consequently, 3 is also deleted. nums = [2]
-//Delete 2 to earn 2 points. nums = []
-//You earn a total of 6 points
-
 deleteAndEarn([2,2,3,3,3,4]); //9
 //Delete a 3 to earn 3 points. All 2's and 4's are also deleted. nums = [3,3]
 //Delete a 3 again to earn 3 points. nums = [3]
 //Delete a 3 once more to earn 3 points. nums = []
 //You earn a total of 9 points
+
+//points: [0, 0, 0, 0, 0] -> [0, 0, 4, 9, 4]
+
+//earned = [0, 0, 0, 0, 0]
+//[2, 2, 3, 3, 3, 4]
+//       ^
+//earned[2] = max(earned[1], earned[0] + points[2]) = (0, 0 + 4) = 4
+//earned = [0, 0, 4, 0, 0]
+
+//[2, 2, 3, 3, 3, 4]
+//          ^
+//earned[3] = max(earned[2], earned[1] + points[3]) = (4, 0 + 9) = 9
+//earned = [0, 0, 4, 9, 0]
+
+//[2, 2, 3, 3, 3, 4]
+//             ^
+//earned[4] = max(earned[3], earned[2] + points[4]) = (9, 4 + 4) = 9
+//earned = [0, 0, 4, 9, 9]
+
+//max(earned[4], earned[3]) = (9, 9) = 9
+
+deleteAndEarn([3,4,2]); //6 
+//Delete 4 to earn 4 points. Consequently, 3 is also deleted. nums = [2]
+//Delete 2 to earn 2 points. nums = []
+//You earn a total of 6 points
