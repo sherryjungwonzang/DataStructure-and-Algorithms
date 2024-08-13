@@ -20,7 +20,7 @@ var flattenMultilevelDoublyLL = (head) => {
 
     while (curr) {
         if (curr.child) {
-            stack.push(curr.next);
+            if (curr.next) stack.push(curr.next);
 
             //new connection to child
             curr.next = curr.child;
