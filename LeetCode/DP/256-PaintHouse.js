@@ -10,19 +10,36 @@
 //find the minimum cost to paint all houses
 
 //Approach:
-//using DP and calculate the minimum cost of painting
+//using DP
 var paintHouse = (costs) => {
-  //setting DP as 0 to update
-  let [r, b, g] = [0, 0, 0];
+    //dp
+    let [r, b, g] = [0, 0, 0];
 
-  for (let [cA, cB, cC] of costs) {
-    //need to be updated with the sum of cost
-      [r, b, g] = [Math.min(b, g) + cA, Math.min(r, g) + cB, Math.min(r, b) + cC];
-  }
-  return Math.min(r, b, g);
+    for (let [cA, cB, cC] of costs) {
+        //the sum of cost
+        [r, b, g] = [Math.min(b, g) + cA, Math.min(r, g) + cB, Math.min(r, b) + cC];
+    }
+
+    return Math.min(r, b, g);
 }
 //TC: O(n) <- O(n x 3)
 //SC: O(1)
 paintHouse([[17,2,17], [16,16,5], [14,3,19]]); //10
 //paint house 0 into blue, paint house 1 into green, paint house 2 into blue
 //minimum cost is 2 + 5 + 3 = 10
+
+//[r, b, g] = [0, 0, 0]
+//[17, 2, 17], [16, 16, 5], [14, 3, 19]]
+// cA  cB cC
+//[r, b, g] = [min(0, 0) + 17, min(0, 0) + 2, min(0, 0) + 17] = [17, 2, 17]
+
+//[r, b, g] = [17, 2, 17]
+//[17, 2, 17], [16, 16, 5], [14, 3, 19]]
+//              cA  cB cC
+//[r, b, g] = [min(2, 17) + 16, min(17, 17) + 16, min(17, 2) + 5] = [18, 33, 7]
+
+//[r, b, g] = [18, 33, 7]
+//[17, 2, 17], [16, 16, 5], [14, 3, 19]]
+//                           cA  cB cC
+//[r, b, g] = [min(33, 7) + 14, min(18, 7) + 3, min(18, 33) + 19] = [21, 10, 39]
+//min(21, 10, 39) = 10
