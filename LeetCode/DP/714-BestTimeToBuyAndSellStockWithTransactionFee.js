@@ -10,16 +10,16 @@
 //Approach:
 //using DP
 var bestTimeStockTransactionFee = (prices, fee) => {
-  let totalProfit = 0; //will be no profit on day 0
-  let hold = -prices[0]; //-prices[0] since it is bought at that price as holding
+    let totalProfit = 0; //no profit on day 0
+    let hold = -prices[0]; //bought at the price as holding
 
-  for (let i = 1; i < prices.length; i++) {
-    totalProfit = Math.max(totalProfit, hold + prices[i] - fee);
-    hold = Math.max(hold, totalProfit - prices[i]);
-  }
-  return totalProfit; //after considering all transactions and fees
+    for (let i = 1; i < prices.length; i++) {
+        totalProfit = Math.max(totalProfit, hold + prices[i] - fee);
+        hold = Math.max(hold, totalProfit - prices[i]);
+    }
+
+    return totalProfit;
 }
-//TC: O(n)
 //SC: O(1)
 bestTimeStockTransactionFee([1,3,2,8,4,9], 2); //8
 //The maximum profit can be achieved by:
@@ -28,5 +28,32 @@ bestTimeStockTransactionFee([1,3,2,8,4,9], 2); //8
 //Buying at prices[4] = 4
 //Selling at prices[5] = 9
 //The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) = 8
+
+//totalProfit = 0
+//hold = -1
+//[1, 3, 2, 8, 4, 9]
+//    ^
+//totalProfit = max(0, -1 + 3 - 2) = 0
+//hold = max(-1, 0 - 3) = -1
+
+//[1, 3, 2, 8, 4, 9]
+//       ^
+//totalProfit = max(0, -1 + 2 - 2) = 0
+//hold = max(-1, 0 - 2) = -1
+
+//[1, 3, 2, 8, 4, 9]
+//          ^
+//totalProfit = max(0, -1 + 8 - 2) = 5
+//hold = max(-1, 5 - 8) = -1
+
+//[1, 3, 2, 8, 4, 9]
+//             ^
+//totalProfit = max(5, -1 + 4 - 2) = 5
+//hold = max(-1, 5 - 4) = 1
+
+//[1, 3, 2, 8, 4, 9]
+//                ^
+//totalProfit = max(5, 1 + 9 - 2) = 8
+//hold = max(1, 8 - 9) = 1
 
 bestTimeStockTransactionFee([1,3,7,5,10,3], 3); 6
