@@ -9,7 +9,7 @@
 //using DP
 var largestSumAvg = (nums, k) => {
     let n = nums.length;
-    let sum = new Array(nums);
+    let sum = new Array(n);
     sum[0] = nums[0];
 
     //calculating the sum
@@ -23,7 +23,7 @@ var largestSumAvg = (nums, k) => {
     for (let i = 1; i < n; i++) dp[0][i] = sum[i] / (i + 1);
 
     for (let i = 1; i < k; i++) { //the row of dp array
-        for (let j = k; j < n; j++) { //index of array
+        for (let j = i; j < n; j++) { //index of array
             for (let m = 0; m < j; m++) { //placement of divider
                 let beforeAvg = dp[i - 1][m];
                 let afterAvg = (sum[j] - sum[m]) / (j - m);
