@@ -16,25 +16,24 @@
 //Approach:
 //using DP
 var minCostTickets = (days, costs) => {
-  //set of travel days
-  let travelDays = new Set(days);
-  let lastTravelDay = days[days.length - 1];
-  let dp = new Array(lastTravelDay + 1).fill(0);
+    let travelDays = new Set(days);
+    let lastTravelDay = days[days.length - 1];
+    let dp = new Array(lastTravelDay + 1).fill(0);
 
-  //DP
-  for (let i = 1; i <= lastTravelDay; i++) {
-    //today is not the travelling day - no extra cost
-    if (travelDays.has(i) === false) dp[i] = dp[i - 1];
-    else { //travelling day - optimal min cost
-      dp[i] = Math.min(
-        dp[i - 1] + costs[0], //1 day pass - costs[0]: cost of 1 day pass ticket
-        dp[Math.max(0, i - 7)] + costs[1], //7-days pass - costs[1]: cost of 7 day pass ticket
-        dp[Math.max(0, i - 30)] + costs[2] //30-days pass - costs[2]: cost of 30 day pass ticket
-      )
+    //DP
+    for (let i = 1; i <= lastTravelDay; i++) {
+        //today is not travel day - noe extra cost
+        if (travelDays.has(i) === false) dp[i] = dp[i - 1];
+        else { //travel dat - optimal min cost
+            dp[i] = Math.min(
+                dp[i - 1] + costs[0], //1 day pass - costs[0]: cost of 1 day pass ticket
+                dp[Math.max(0, i - 7)] + costs[1], //7 days pass - costs[1]: cost of 7 days ticket
+                dp[Math.max(0, i - 30)] + costs[2] //30 days pass - costs[2]: cost of 30 days pass ticket
+            )
+        }
     }
-  }
-  
-  return dp[lastTravelDay];
+
+    return dp[lastTravelDay];
 }
 minCostTickets(days = [1,4,6,7,8,20], costs = [2,7,15]); //11
 //For example, here is one way to buy passes that lets you travel your travel plan:
@@ -42,6 +41,66 @@ minCostTickets(days = [1,4,6,7,8,20], costs = [2,7,15]); //11
 //On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
 //On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
 //In total, you spent $11 and covered all the days of your travel
+
+//travelDays = {1, 4, 6, 7, 8, 20}
+//DP
+//  0 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 1
+//dp[1] = min(dp[0] + 2, dp(max(0, 1 - 7) + 7), dp(max(0, 1 - 30) + 15)) = (2, 7, 15) = 2
+//  0 2 0 0 0 0 0
+//  0 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 2, 3
+//travelDays does not have 2, 3 -> dp[2] & dp[3] = dp[1] = 2
+//  0 2 2 2 0 0 0
+//  0 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 4
+//dp[4] = min(dp[3] + 2, dp(max(0, 4 - 7) + 7), dp(max(0, 4 - 30) + 15)) = (4, 7, 15) = 4
+//  0 2 2 2 4 0 0
+//  0 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 5
+//travelDays does not have 5 -> dp[5] = dp[4] = 4
+//  0 2 2 2 4 4 0
+//  0 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 6
+//dp[6] = min(dp[5] + 2, dp(max(0, 6 - 7) + 7), dp(max(0, 6 - 30) + 15)) = (4, 7, 15) = 6
+//  0 2 2 2 4 4 6
+//  0 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 7
+//dp[7] = min(dp[6] + 2, dp(max(0, 7 - 7) + 7), dp(max(0, 7 - 30) + 15)) = (8, 7, 15) = 7
+//  0 2 2 2 4 4 6
+//  7 0 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 8
+//dp[8] = min(dp[7] + 2, dp(max(0, 8 - 7) + 7), dp(max(0, 8 - 30) + 15)) = (9, 9, 15) = 9
+//  0 2 2 2 4 4 6
+//  7 9 0 0 0 0 0
+//  0 0 0 0 0 0 0
+
+//i = 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+//travelDays does not have 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 -> all dp[] is 9
+//  0 2 2 2 4 4 6
+//  7 9 9 9 9 9 9
+//  9 9 9 9 9 9 0
+
+//i = 20
+//dp[20] = min(dp[19] + 2, dp(max(0, 20 - 7) + 7), dp(max(0, 20 - 30) + 15)) = (11, 16, 15) =11
+//  0 2 2 2 4 4 6
+//  7 9 9 9 9 9 9
+//  9 9 9 9 9 9 11
 
 minCostTickets(days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]); //17
 //For example, here is one way to buy passes that lets you travel your travel plan:
