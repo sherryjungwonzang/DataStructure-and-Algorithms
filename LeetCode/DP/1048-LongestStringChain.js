@@ -21,7 +21,17 @@ var longestStringChain = (words) => {
     //DP
     for (let word of words) {
         dp[word] = 1;
+
+        for (let i = 0; i < word.length; i++) {
+            let prev = word.slice(0, i) + word.slice(i + 1);
+
+            if (prev in dp) dp[word] = Math.max(dp[word], dp[prev] + 1);
+        }
+
+        max = Math.max(max, dp[word]);
     }
+
+    return max;
 }
 //TC: O(n * m) - n: the total number of words, m: the avg word length
 //SC: O(n)
