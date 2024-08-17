@@ -21,7 +21,7 @@ var swapMakeEqual = (s1, s2) => {
         //find the difference
         if (s1[i] !== s2[i]) count++;
 
-        if (count > 2);
+        if (count > 2) return false;
     } 
 
     return true;
