@@ -15,52 +15,93 @@
 //return the winnder of the game
 
 //Approach:
-//using Queue approach - FIFO
-//shift off the first element and add to the end
-//.shift() - remove the first element from the queue
-//.push() - add the element at then end
+//using Queue with FIFO
 var circularGame = (n, k) => {
-    //create a queue
+    //create a queue - shift off the first element and add to the end
     let queue = [];
 
     //populating queue with the number of friends
-    for (let i = 1; i <= n; i++) {
-        queue.push(i);
-    }
+    for (let i = 1; i <= n; i++) queue.push(i);
 
+    //FIFO
     while (queue.length > 1) {
-        //set the goal to remove
-        let toRemove = k - 1;
+        let toRemove = k - 1; //the position needs to remove
 
         //shift off the queue
         while (toRemove > 0) {
-            //add the first element that shift off from the queue at the end
-            queue.push(queue.shift());
+            let curr = queue.shift();
+            
+            queue.push(curr); //add the first element that shift off from the queue at the end
 
             //decrement toRemove
             toRemove--;
         }
-        //remove the current friend from the queue - the first element
-        queue.shift();
+        
+        queue.shift(); //remove the current friend from the queue - the first element
     }
+
     return queue.shift();
 }
 circularGame(5, 2); //3
-//[1, 2, 3, 4, 5] - shift 1 and add to the end
-//[2, 3, 4, 5, 1] - removing the first value within the queue
-//[3, 4, 5, 1] - move along by k-1 friends and shift to the end
-//[4, 5, 1, 3] - removing the first value within the queue
-//[5, 1, 3] - move along by k-1 friends and shift to the end
-//[1, 3, 5] - removing the first value within the queue
-//[3, 5] - move along by k-1 friends and shift to the end
-//[5, 3] - removing the first value within the queue
+//queue = [ ]
+//populating the queue -> queue = [1, 2, 3, 4, 5]
+
+//toRemove = 2 - 1 = 1
+//curr = 1 -> queue = [2, 3, 4, 5, 1]
+//toRemove = 2 - 1 = 1 -> 0
+//shift: 2 -> queue = [3, 4, 5, 1]
+
+//toRemove = 1
+//curr = 3 -> queue = [4, 5, 1, 3]
+//toRemove = 1 -> 0
+//shift: 4 -> queue = [5, 1, 3]
+
+//toRemove = 1
+//curr = 5 -> queue = [1, 3, 5]
+//toRemove = 1 -> 0
+//shift: 1 -> queue = [3, 5]
+
+//toRemove = 1
+//curr = 3 -> queue = [5, 3]
+//toRemove = 1 -> 0
+//shift: 5 -> queue = [3]
 //[3]
 
 circularGame(6, 5); //1
-//The friends leave in this order: 5, 4, 6, 2, 3. The winner is friend 1.
-//[1, 2, 3, 4, 5, 6] - shift 4 and add to the end
-//[1, 2, 3, 5, 6, 4] - removing the fourth value within the queue '5'
-//[1, 2, 3, 6, 4] - move along by k-1 friends and shift to the end
-//[1, 2, 3, 4, 6] - removing the fourth value within the queue '4'
-//[1, 2, 3, 6] - move along by k-1 friends and shift to the end
-//[1, 2, 3] - removing the fourth value within the queue '6'
+//queue = [ ]
+//populating the queue -> queue = [1, 2, 3, 4, 5, 6]
+
+//toRemove = 5 - 1 = 4
+//curr = 1 -> queue = [2, 3, 4, 5, 6, 1]
+//toRemove = 4 -> 3
+//curr = 2 -> queue = [3, 4, 5, 6, 1, 2]
+//toRemove = 4 -> 3 -> 2
+//curr = 3 -> queue = [4, 5, 6, 1, 2, 3]
+//toRemove = 4 -> 3 -> 2 -> 1
+//curr = 4 -> queue = [5, 6, 1, 2, 3, 4]
+//toRemove = 4 -> 3 -> 2 -> 1 -> 0
+//shift: 5 -> queue = [6, 1, 2, 3, 4]
+
+//toRemove = 4
+//curr = 6 -> queue = [1, 2, 3, 4, 6]
+//toRemove = 4 -> 3
+//curr = 1 -> queue = [2, 3, 4, 6, 1]
+//toRemove = 4 -> 3 -> 2
+//curr = 2 -> queue = [3, 4, 6, 1, 2]
+//toRemove = 4 -> 3 -> 2 -> 1
+//curr = 3 -> queue = [4, 6, 1, 2, 3]
+//toRemove = 4 -> 3 -> 2 -> 1 -> 0
+//shift: 4 -> queue = [6, 1, 2, 3]
+
+//toRemove = 4
+//curr = 6 -> queue = [1, 2, 3, 6]
+//toRemove = 4 -> 3
+//curr = 1 -> queue = [2, 3, 6, 1]
+//toRemove = 4 -> 3 -> 2
+//curr = 2 -> queue = [3, 6, 1, 2]
+//toRemove = 4 -> 3 -> 2 -> 1
+//curr = 3 -> queue = [6, 1, 2, 3]
+//toRemove = 4 -> 3 -> 2 -> 1 -> 0
+//shift: 6 -> queue = [1, 2, 3]
+
+//[1]
