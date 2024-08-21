@@ -6,19 +6,16 @@
 //Approach:
 //using BFS with queue
 var updateMatrix = (mat) => {
-    //directions
+    let m = mat.length;
+    let n = mat[0].length;
     let directions = [ [0, -1], [0, 1], [1, 0], [-1, 0] ];
     let queue = [];
 
-    for (let i = 0; i < mat.length; i++) {
-        for (let j = 0; j < mat[0].length; j++) {
-            //find 0's position and distance
-            if (mat[i][j] === 0) {
-                queue.push([i, j, 0]);
-            } else {
-                //changing 1 to Infinity
-                mat[i][j] = Infinity;
-            }
+    //find 0's position and distance
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (mat[i][j] === 0) queue.push([i, j, 0]);
+            else mat[i][j] = Infinity; //changing 1 to Infinity
         }
     }
 
@@ -26,10 +23,10 @@ var updateMatrix = (mat) => {
     while(queue.length) {
         let [currX, currY, dist] = queue.shift();
 
-        //checking Inifinity is greater than the current distance and updating the value
+        //updating the distance
         if (mat[currX][currY] > dist) mat[currX][currY] = dist;
 
-        //looping through each directions from the current point
+        //looping all directions
         for (let [x, y] of directions) {
             let [nextX, nextY, nextVal] = [currX + x, currY + y, dist + 1];
 
@@ -39,7 +36,8 @@ var updateMatrix = (mat) => {
             //adding to the queue if the distance is showing Infinity
             if (mat[nextX][nextY] === Infinity) queue.push([nextX, nextY, nextVal]);
         }
-    }
+    };
+    
     return mat;
 }
 updateMatrix([[0,0,0],[0,1,0],[1,1,1]]); //[[0,0,0],[0,1,0],[1,2,1]]
@@ -99,3 +97,4 @@ updateMatrix([[0,0,0],[0,1,0],[0,0,0]]); //[[0,0,0],[0,1,0],[0,0,0]]
 // 0 0 0
 // 0 1 0
 // 0 0 0
+
