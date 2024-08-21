@@ -11,6 +11,9 @@
 //given a 'target' representing the value of the wheels that will unlock the lock
 //return the minimum total number of turns required to open the lock
 //or -1 if it is impossible
+
+//Approach:
+//using queue with BFS
 var openLock = (deadends, target) => {
     //variables
     let deadendSet = new Set(deadends);
@@ -33,23 +36,25 @@ var openLock = (deadends, target) => {
             }
         }
     }
+
+    //possible turns starting from 1000, 0100, 0010, 0001, 9000, 0900, 0090, 0009
+    function possibleCombo(str) {
+        //to store all combinations
+        let ans = [];
+
+        for (let i = 0; i < str.length; i++) {
+            //slice, combine and do modulo
+            //converting string to integer -> '+'
+            ans.push(str.slice(0, i) + ((+str[i] + 1) % 10) + str.slice(i + 1)); //forwards
+            ans.push(str.slice(0, i) + ((+str[i] + 9) % 10) + str.slice(i + 1)); //backwards
+        }
+
+        return ans;
+    };
+
     return -1;
 }
 
-//helper function
-//possible turns 1000, 0100, 0010, 0001, 9000, 0900, 0090, 0009
-function possibleCombo(str) {
-    //to store all combinations
-    let ans = [];
-
-    for (let i = 0; i < str.length; i++) {
-        //slice, combine and do modulo
-        //converting string to integer -> '+'
-        ans.push(str.slice(0, i) + ((+str[i] + 1) % 10) + str.slice(i + 1)); //forwards
-        ans.push(str.slice(0, i) + ((+str[i] + 9) % 10) + str.slice(i + 1)); //backwards
-    }
-    return ans;
-}
 openLock(["0201","0101","0102","1212","2002"], "0202"); //6 
 //A sequence of valid moves would be "0000" -> "1000" -> "1100" -> "1200" -> "1201" -> "1202" -> "0202".
 //Note that a sequence like "0000" -> "0001" -> "0002" -> "0102" -> "0202" would be invalid,
