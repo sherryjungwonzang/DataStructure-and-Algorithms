@@ -13,13 +13,10 @@
 //denotes that rain water can flow from cell (r_i, c_i) to both the Pacific and Atlantic ocean
 
 //Approach:
-//using with two queues: pacific queue and atlantic queue - push into each borders
-//BFS - on Pacific and Atlantic 
-//creating a 2D array with false and will update it to true accordingly
+//using BFS with two queues - pacific queue and atlantic queue
 var pacificAtlantic = (heights) => {
-    //row and column length
-    let r = heights.length;
-    let c = heights[0].length;
+    let r = heights.length; //row
+    let c = heights[0].length; //col
 
     //two queues
     let pacificQueue = [];
@@ -36,29 +33,26 @@ var pacificAtlantic = (heights) => {
         }
     }
 
-    //BFS
     function bfs(queue) {
         //valid border
-        const isValid = (x, y) => x >= 0 && y >= 0 && x < r && y < c;
+        let isValid = (x, y) => x >= 0 && y >= 0 && x < r && y < c;
 
         //directions
-        const directions = [ [0, 1], [0, -1], [1, 0], [-1, 0] ];
+        let directions = [ [0, 1], [0, -1], [1, 0], [-1, 0] ];
 
-        //creating 2D array
-        //need to track visited position
+        //creating 2D array - to track visited position
         //Array.from('foo') -> Array ["f", "o", "o"]
-        const visited = Array.from(Array(r), () => new Array(c).fill(false));
+        let visited = Array.from(Array(r), () => new Array(c).fill(false));
 
-        //BFS functions
+        //BFS
         while(queue.length) {
-            //extracting from queue
-            const [x, y] = queue.shift();
-            //updating visited array
+            const [x, y] = queue.shift(); //curr
+   
             visited[x][y] = true; 
 
             //4 directions
             for (let dir of directions) {
-                //extract possible next
+                //next direction
                 let nextX = x + dir[0];
                 let nextY = y + dir[1];
 
@@ -67,19 +61,22 @@ var pacificAtlantic = (heights) => {
                 //only can go higher or equal value
                 if (heights[nextX][nextY] >= heights[x][y]) queue.push([nextX, nextY]);
             }
-        }
+        };
+
         return visited;
     }
 
-    const pacific = bfs(pacificQueue);
-    const atlantic = bfs(atlanticQueue);
-    const res = [];
+    let res = [];
+    let pacific = bfs(pacificQueue);
+    let atlantic = bfs(atlanticQueue);
 
     for (let x = 0; x < r; x++) {
         for (let y = 0; y < c; y++) {
+            //duplicated visited are answer
             if (pacific[x][y] && atlantic[x][y]) res.push([x, y]);
         }
     }
+
     return res;
 }
 //TC: O(m * n) - m is the num of rows and n is the num of columns
