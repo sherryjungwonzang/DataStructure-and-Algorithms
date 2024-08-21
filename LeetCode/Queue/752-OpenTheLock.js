@@ -15,14 +15,12 @@
 //Approach:
 //using queue with BFS
 var openLock = (deadends, target) => {
-    //variables
     let deadendSet = new Set(deadends);
     let visited = new Set(["0000"]);
     let queue = [["0000", 0]];
 
     //BFS
     while (queue.length) {
-        //extracting curr combination by shift()
         let [curr, count] = queue.shift();
 
         if (curr === target) return count;
