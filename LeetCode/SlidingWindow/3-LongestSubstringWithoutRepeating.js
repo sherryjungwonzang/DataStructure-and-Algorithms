@@ -3,12 +3,7 @@
 //find the length of the longest substring without repeating characters
 
 //Approach: 
-//Set() - allow for constant lookup
-//Sliding window algorithm - using with two pointers(left & right)
-//moving right pointer for comparing, otherwise case
-//moving left pointer when the element is already is Set
-
-//**longestStr = max(longestStr, set.size) - set will be added and reloved based on the string
+//using Set and Sliding window 
 var lengthOfLongestSubstring = (s) => {
     let set = new Set();
     let longest = 0;
@@ -22,7 +17,7 @@ var lengthOfLongestSubstring = (s) => {
 
         if (!set.has(letter)) {
             set.add(letter);
-            longest = Math.max(longest, set.size);
+            longest = Math.max(longest, set.size); ////**longestStr = max(longestStr, set.size) - set will be added and reloved based on the string
             right++;
         } else {
             set.delete(s[left]); //deleting the left pointer value
