@@ -3,8 +3,9 @@
 //return its maximum depth - the num of nodes along the longest path from the root node down to the farthest leaf node
 
 //Approach:
-//BFS with iterative approach with queue
+//BFS with queue
 var maxDepth_BFS = (root) => {
+    //base case
     if (!root) return 0;
 
     let depth = 0;
@@ -20,18 +21,37 @@ var maxDepth_BFS = (root) => {
             if (curr.left) queue.push(curr.left);
             if (curr.right) queue.push(curr.right);
         } 
+
         depth++;
     }
+    
     return depth;
 }
 maxDepth_BFS([3,9,20,null,null,15,7]); //3
 //    3
 //  9   20
 //    15   7
-//queue = [ 3 9 20 ] | [ 9 20 ] | [ 20 15 7 ] | [ 15 7 ]   | [ 7 ]         | [ ]
-//current = [  ]     | [ 3 ]    | [ 3 9 ]     | [3 9 20 ]  | [3 9 20 15 ]  | [3 9 20 15 7 ] 
-//depth = 0          |  1       |   1         |  2         | 2             | 3
+//queue = [ [3, 9, 20, null, null, 15, 7] ] 
+//current = [ 3, 9, 20, null, null, 15, 7 ] 
+//depth = 0 -> 1
 
+//queue = [ [9], [20, 15, 7] ] 
+//current = [ 3, 9, 20, null, null, 15, 7 ], [9]
+//depth = 0 -> 1 -> 2
+
+//queue = [ [20, 15, 7] ] 
+//current = [ 3, 9, 20, null, null, 15, 7 ], [9], [20, 15, 7]
+//depth = 0 -> 1 -> 2 -> 2
+
+//queue = [ [15], [7] ]
+//current = [ 3, 9, 20, null, null, 15, 7 ], [9], [20, 15, 7], [15]
+//depth = 0 -> 1 -> 2 -> 2 -> 3
+
+//queue = [ [7] ]
+//current = [ 3, 9, 20, null, null, 15, 7 ], [9], [20, 15, 7], [15], [7]
+//depth = 0 -> 1 -> 2 -> 2 -> 3 -> 3
+
+//queue = [ ]
 
 maxDepth_BFS([1,null,2]); //2
 //   1
