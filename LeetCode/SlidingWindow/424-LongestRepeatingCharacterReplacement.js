@@ -5,16 +5,10 @@
 //return the length of the longest substring containing the same letter you can get after performing the abovr operation
 
 //Approach: 
-//map - to store how many times we see each characters
-//two pointers - left and right
-//moving the right pointer when it is not valid -> (right - left + 1) - topFreq > 0
-//moving the left pointer when it is valid -> (right - left + 1) - topFreq < 0
-
+//using map and sliding windows
 //the length of substring = (right - left + 1)
 //(right - left + 1) - Top frequency = Small frequency
 //the freq in map has relating to topFreq
-
-//**longest = max(longest, (right - left + 1))
 var longestRepeatingCharReplacement = (s, k) => {
     let map = {};
     let topFreq = 0; //the most amount of character
@@ -34,6 +28,8 @@ var longestRepeatingCharReplacement = (s, k) => {
         topFreq = Math.max(topFreq, map[rightChar]);
 
         //checking valid or not
+        //moving the right pointer when it is not valid -> (right - left + 1) - topFreq > 0
+        //moving the left pointer when it is valid -> (right - left + 1) - topFreq < 0
         while((right - left + 1) - topFreq > k) { //not valid
             let leftChar = s[left];
             map[leftChar]--;
