@@ -4,39 +4,39 @@
 //ex: from left to right, then right to left for the next level and alternate between
 
 //Approach:
-//using BFS with flag - even or odd
+//using BFS with queue and using flag - even or odd
 var zigzagLevelOrder = (root) => {
     //base case
     if (!root) return [];
 
-    const queue = [root];
-    const res = [];
+    let queue = [root];
+    let res = [];
     let depth = 0;
 
     //BFS
     while(queue.length) {
-        const level = [];
+        let level = [];
         let levelSize = queue.length;
 
         while(levelSize) {
-            const curr = queue.shift();
+            let curr = queue.shift();
 
             //child nodes
             if (curr.left) queue.push(curr.left);
             if (curr.right) queue.push(curr.right);
 
             //even or odd
-            if (depth % 2 === 0) {
-                level.push(curr.val);
-            } else {
-                level.unshift(curr.val); //unshift(): adding into the first position in level array
-            }
+            if (depth % 2 === 0) level.push(curr.val); //even
+            else level.unshift(curr.val); //odd //unshift(): adding into the first position in level array
+            
             levelSize--;
         }
+
         res.push(level);
 
         depth++;
     }
+
     return res;
 }
 //TC: O(n) -  n is the number of nodes in tree
@@ -47,35 +47,36 @@ zigzagLevelOrder([3,9,20,null,null,15,7]); //[[3], [20,9], [15,7]]
 //      15  7 ---> level: 2 (even - right)
 
 //depth = 0
-//queue = [ 3 ]
 //level = []
 //res = []
+//queue = [ [3, 9, 20, null, null, 15, 7] ]
+//curr = [3, 9, 20, null, null, 15, 7]
+//queue = [ [9], [20, 15, 7] ]
+//depth = 0: even -> level = [3, ]
+//depth = 0 -> 1
+//res = [ [3], ]
 
-///starting from root(3)
-//shift off 3 from queue -> even
-//level = [ 3 ] - push
-//checking 3's child -> 9, 20 putting in queue
-//queue = [ 9, 20 ]
-//level 0 is over -> push into res
-//res = [ [3] ]
+//queue = [ [9], [20, 15, 7] ]
+//curr = [3, 9, 20, null, null, 15, 7], [9]
+//9 has no child
+//depth = 1: odd -> level = [9]
 
-//shift off 9 from queue -> odd
-//level = [ 9 ] - unshift
-//checking 9's child - nothing
-//shift off 20 from queue -> odd
-//level = [ 20, 9 ] - unshift
-//checking 20's child -  15 and 7 putting in queue
-//queue = [ 15, 7 ]
-//level 1 is over -> push into res
-//res = [ [3], [20, 9] ]
+//queue = [ [20, 15, 7] ]
+//curr = [3, 9, 20, null, null, 15, 7], [9], [20, 15, 7]
+//queue = [ [15], [7] ]
+//depth = 1: odd -> level = [20, 9]: 20 is going in front of 9
+//depth = 0 -> 1 -> 2
+//res = [ [3], [20, 9], ]
 
-//shift off 15 from queue -> even
-//level = [ 15 ] - push
-//checking 15's child -> nothing
-//shift off 7 from queue -> even
-//level = [ 15, 7 ] - push
-//checking 7's child -> nothing
-//level 2 is over -> push into res
+//queue = [ [15], [7] ]
+//curr = [3, 9, 20, null, null, 15, 7], [9], [20, 15, 7], [15]
+//15 has no child
+//depth = 2: even -> level = [15]
+
+//queue = [ [7] ]
+//curr = [3, 9, 20, null, null, 15, 7], [9], [20, 15, 7], [15], [7]
+//7 has no child
+//depth = 2: even -> level = [15, 7]
 //res = [ [3], [20, 9], [15, 7] ]
 
 zigzagLevelOrder([1]); //[[1]]
