@@ -1,11 +1,12 @@
-//102. Binary Tree Level Order Traversal
+ //102. Binary Tree Level Order Traversal
 //given the root of a binary tree
 //return the level order traversal of its nodes' value
 //ex: from left to right, level by level
 
 //Approach:
-//using BFS with Queue - to restrict processing order of an array to FIFO basis
+//using BFS with queue 
 var binaryTreeLevelOrderTraversal = (root) => {
+    //base case
     if (root === null) return [];
 
     let res = [];
@@ -24,10 +25,13 @@ var binaryTreeLevelOrderTraversal = (root) => {
             if (curr.right) queue.push(curr.right);
 
             level.push(curr.val);
+
             levelSize--;
         }
+
         res.push(level);
     }
+
     return res;
 }
 //TC: O(n) - visit each individual node
@@ -36,35 +40,37 @@ binaryTreeLevelOrderTraversal([3, 9, 20, null, null, 15, 7]); //[[3], [9,20], [1
 //    3
 //  9   20 
 //    15   7
-//Queue = [ 3 ] - initializing with the root node
-//level = [ ] 
-//curr = 
+
+//level = [ ] , levelSize = 1
 //res = [ ]
 
-//Queue = [ 9 20 ] - adding node's left and right child (if it has)
-//level = [3] 
-//curr = 3
-//the first level is done -> add into res
+//queue = [ [3, 9, 20, null, null, 15, 7] ]
+//curr =  [3, 9, 20, null, null, 15, 7]
+//queue = [ [9], [20, 15, 7] ]
+//level = [ 3,  ] , levelSize = 1 -> 0
+//res = [ [3], ]
 
-//Queue = [ 20 ] - adding node's left and right child (if it has)
-//level = [3], [ 9 ] 
-//curr = 9
+//queue = [ [9], [20, 15, 7] ]
+//curr =  [3, 9, 20, null, null, 15, 7], [9]
+//9 has no left and right child
+//level = [ 3, 9 ] , levelSize = 2 -> 1
 
-//Queue = [ 15 7 ] - adding node's left and right child (if it has)
-//level = [3], [9,20] 
-//curr = 9 20
-//the second level is done -> add into res
+//queue = [ [20, 15, 7] ]
+//curr =  [3, 9, 20, null, null, 15, 7], [9], [20, 15, 7]
+//queue = [ [15], [7] ]
+//level = [ 3, 9, 20 ] , levelSize = 2 -> 1 -> 0
+//res = [ [3], [9, 20], ]
 
-//Queue = [ 7 ] - adding node's left and right child (if it has)
-//level = [3], [9,20], [15] 
-//curr = 15 
+//queue = [ [15], [7] ]
+//curr =  [3, 9, 20, null, null, 15, 7], [9], [20, 15, 7], [15]
+//15 has no left and right child
+//level = [ 3, 9, 15, ] , levelSize = 2 -> 1
 
-//Queue = [ ] - adding node's left and right child (if it has)
-//curr = 15 7
-//level = [3], [9,20], [15,7] 
+//queue = [ [7] ]
+//curr =  [3, 9, 20, null, null, 15, 7], [9], [20, 15, 7], [15], [7]
+//7 has no left and right child
+//level = [ 3, 9, 15, 7 ] , levelSize = 2 -> 1 -> 0
 //res = [ [3], [9, 20], [15, 7] ]
-//the third level is done -> add into res
-//when the queue is empty at all -> return res
 
 binaryTreeLevelOrderTraversal([1]); //[[1]]
 
