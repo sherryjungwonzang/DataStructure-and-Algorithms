@@ -13,9 +13,9 @@ var minDepthBinaryTree = (root) => {
 
     //BFS
     while (queue.length) {
-        let len = queue.length;
+        let levelSize = queue.length;
 
-        while(len) {
+        while(levelSize) {
             let curr = queue.shift();
 
             //leaf node
@@ -26,7 +26,7 @@ var minDepthBinaryTree = (root) => {
                 if (curr.right) queue.push(curr.right);
             }
 
-            len--;
+            levelSize--;
         }
 
         minDepth++;
@@ -80,3 +80,5 @@ minDepthBinaryTree([2,null,3,null,4,null,5,null,6]); //5
 //queue = [ [6] ], len = 1
 //curr = [2,null,3,null,4,null,5,null,6], [3,null,4,null,5,null,6], [4,null,5,null,6], [5,null,6], [6]
 //6's left and right are empty -> leaf node
+
+
