@@ -21,9 +21,9 @@ var addOneRow = (root, val, depth) => {
 
     //BFS
     while (queue.length) {
-        let [node, nodeDepth] = queue.shift();
-
-        //curr node is at the depth just before the target depth
+        let [node, nodeDepth] = queue.shift(); //curr
+ 
+        //the depth to add val
         if (nodeDepth === depth - 1) {
             //adding a new node - left
             let newLeft = new TreeNode(val, node.left, null);
@@ -37,6 +37,7 @@ var addOneRow = (root, val, depth) => {
             if (node.right) queue.push([node.right, nodeDepth + 1]);
         }
     }
+
     return root;
 }
 addOneRow([4,2,6,3,1,5], 1, 2); //[4,1,1,2,null,null,6,3,1,5]
@@ -45,8 +46,29 @@ addOneRow([4,2,6,3,1,5], 1, 2); //[4,1,1,2,null,null,6,3,1,5]
 //  3  1  5          2        6
 //                 3   1    5
 
+//queue = [ [[4,2,6,3,1,5], 1] ]
+//curr = [[4,2,6,3,1,5], 1] 
+//nodeDepth = 1  = depth - 1 = 1 -> need to add val
+//newLeft = [1, 2, null, 3, 1]
+//newRight = [1, null, 6, 5]
+
 addOneRow([4,2,null,3,1], 1,3); //[4,2,null,1,1,3,null,null,1]
 //       4               4
 //    2       ->     2    
 //  3  1           1   1
 //               3       1    
+
+//queue = [ [4,2,null,3,1], 1] ]
+//curr = [4,2,null,3,1], 1]
+//nodeDepth = 1 != depth - 1 = 2
+
+//adding left and right to queue
+//left = [2,3,1]
+//right = null
+//queue = [ [2,3,1], 2] ]
+
+//queue = [ [2,3,1], 2] ]
+//curr = [4,2,null,3,1], 1], [2,3,1], 2]
+//nodeDepth = 2 != depth - 1 = 2 -> need to add val
+//newLeft = [1, 3]
+//newRight = [1, null, 1]
