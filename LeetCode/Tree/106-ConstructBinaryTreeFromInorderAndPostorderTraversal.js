@@ -9,6 +9,7 @@ var buildTreeInPostOrder = (inorder, postorder) => {
     //base case
     if (inorder.length === 0 || postorder.length === 0) return null;
 
+    //root information
     let rootVal = postorder[postorder.length - 1];
     let inIndex = inorder.indexOf(rootVal); //root index in inorder array
 
