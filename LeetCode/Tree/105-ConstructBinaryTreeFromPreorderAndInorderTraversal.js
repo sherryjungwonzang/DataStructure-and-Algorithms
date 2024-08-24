@@ -5,7 +5,7 @@
 //construct and return the binary tree
 
 //Approach:
-//using recurse
+//using Recursion
 var buildTreePreInOrder = (preorder, inorder) => {
     
     //recurse function
