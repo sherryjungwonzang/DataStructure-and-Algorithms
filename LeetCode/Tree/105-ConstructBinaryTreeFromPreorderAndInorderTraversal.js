@@ -5,26 +5,9 @@
 //construct and return the binary tree
 
 //Approach:
-//using pre-order and in-oder traversal features - the position of root
-//create recurse function with preorder's start and end and inorder's start and end
-//using recursive in root.left and root.right - setting the location based on preorder & inorder
-
-//left recurse
-//Preorder array - first and second
-//pStart + 1: start point of left nodes in preorder array
-//pStart + nLeft: end point of left nodes in preorder array
-//Inorder array - third and fourth
-//inStart: start point of right nodes in inorder array
-//inIndex - 1: end point of right nodes in inorder array
-
-//right recurse
-//Preorder array - first and second
-//pStart + 1 + nLeft: start point of right nodes in preorder array
-//pEnd: end point of right nodes in preorder array
-//Inorder array - third and fourth
-//inIndex + 1: start point of right nodes in inorder array
-//inEnd: end point of right nodes in inorder array
-var buildTree = (preorder, inorder) => {
+//using recurse
+var buildTreePreInOrder = (preorder, inorder) => {
+    
     //recurse function
     function recurse(pStart, pEnd, inStart, inEnd) {
         //base case
@@ -34,43 +17,50 @@ var buildTree = (preorder, inorder) => {
         let inIndex = inorder.indexOf(rootVal); //the index of root
         let nLeft = inIndex - inStart; //the num of values of left node
 
+        let preLeftStart = pStart + 1;
+        let preLeftEnd = pStart + nLeft;
+        let preRightStart = pStart + 1 + nLeft;
+        let preRightEnd = pEnd;
+
+        let inLeftStart = inStart;
+        let inLeftEnd = inIndex - 1;
+        let inRightStart = inIndex + 1;
+        let inRightEnd = inEnd;
+
+
         //building a Tree
         let root = new TreeNode(rootVal);
-        root.left = recurse(pStart + 1, pStart + nLeft, inStart, inIndex - 1);
-        root.right = recurse(pStart + 1 + nLeft, pEnd, inIndex + 1, inEnd);
+        root.left = recurse(preLeftStart, preLeftEnd, inLeftStart, inLeftEnd);
+        root.right = recurse(preRightStart, preRightEnd, inRightStart, inRightEnd);
 
         return root;
     }
+
     return recurse(0, preorder.length - 1, 0, inorder.length - 1);
 }
 
-buildTree([3,9,20,15,7], [9,3,15,20,7]); //[3,9,20,null,null,15,7]
-//preorder: [3, 9, 20, 15, 7]
-//inorder: [9, 3, 15, 20, 7]
+buildTreePreInOrder([3,9,20,15,7], [9,3,15,20,7]); //[3,9,20,null,null,15,7]
+//preorder: root - left - right
+//inorder: left - root - right
 
-//recurse
-//rootVal = preorder[pStart] = [0]
-//inIndex = indexOf(rootVal) = [1]
-//nLeft = inIndex - inStart = 1 - 0 = 1 in inorder
+//preorder: [3,     9,      20,      15,      7]
+//           ^
+//         pStart                            pEnd
+//                  L       ----------R---------
+//             pStart+nLeft
+//                    pStart+1+nLeft
 
-//create binary tree
-//root = TreeNode(rootVal) = 3
-//root.left = recurse(pStart+1 = 1, pStart+nLeft = 1, inStart = 0, inIndex-1 = 0)
-//root.right = recurse(pStart+1+nLeft = 2, pEnd = 4, inIndex+1 = 2, inEnd = 4)
 
-buildTree([-1], [-1]); //[-1]
+//inorder: [9,      3,      15,      20,      7]
+//                  ^
+//               inIndex
+//       inStart                             inEnd
+//          L                ----------R---------
+//      inIndex-1        inIndex+ 1
+
+
+buildTreePreInOrder([-1], [-1]); //[-1]
  
-buildTree([3,9,11,6,7,20,15,4], [6,11,9,7,3,15,20,4]); //[3,9,20,11,7,15,4,6]
-//preorder: [3,9,11,6,7,20,15,4]
-//inorder: [6,11,9,7,3,15,20,4]
+buildTreePreInOrder([3,9,11,6,7,20,15,4], [6,11,9,7,3,15,20,4]); //[3,9,20,11,7,15,4,6]
 
-//recurse
-//rootVal = preorder[pStart] = [0]
-//inIndex = indexOf(rootVal) = [4]
-//nLeft = inIndex - inStart = 4 - 0 = 4 in inorder
-
-//create binary tree
-//root = [4] - in inorder array
-//root.left = recurse(pStart+1 = 1, pStart+nLeft = 4, inStart = 0, inIndex-1 = 3)
-//root.right = recurse(pStart+1+nLeft = 5, pEnd = 7, inIndex+1 = 4, inEnd = 7)
 
