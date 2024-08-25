@@ -13,13 +13,13 @@ var evenOddTree = (root) => {
     //base case
     if (!root) return true;
 
-    let queue = [root];
     let level = 0;
+    let queue = [root];
 
     //BFS
     while (queue.length) {
-        let levelSize = queue.length;
         let prevVal = (level % 2 === 0) ? Number.MIN_SAFE_INTEGER : Number.MAX_SAFE_INTEGER;
+        let levelSize = queue.length;
 
         for (let i = 0; i < levelSize; i++) {
             let curr = queue.shift();
@@ -37,8 +37,10 @@ var evenOddTree = (root) => {
             if (curr.left) queue.push(curr.left);
             if (curr.right) queue.push(curr.right);
         }
+
         level++;
     }
+
     return true;
 }
 evenOddTree([1,10,4,3,null,7,9,12,8,6,null,null,2]); //true
@@ -46,27 +48,114 @@ evenOddTree([1,10,4,3,null,7,9,12,8,6,null,null,2]); //true
 //      10      4       -level 1
 //    3       7   9     -level 2
 // 12  8    6       2   -level 3
-
-//the node values on each level are:
-//Level 0: [1]
-//Level 1: [10,4]
-//Level 2: [3,7,9]
-//Level 3: [12,8,6,2]
 //Since levels 0 and 2 are all odd and increasing and levels 1 and 3 are all even and decreasing, the tree is Even-Odd
+
+//level = 0
+//prevVal = -9007199254740991
+
+//queue = [ [1,10,4,3,null,7,9,12,8,6,null,null,2] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2]
+//checking level is even & (curr.val is odd || curr val is greater than prev val) - true
+//prevVal = -9007199254740991 -> 1
+//queue = [ [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2] ]
+//level = 0 -> 1
+
+//queue = [ [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8]
+//checking level is odd & (curr.val is even || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 10
+//queue = [ [4, 7, 9, 6, null, null, 2] || [3, 12, 8] ]
+
+//queue = [ [4, 7, 9, 6, null, null, 2] || [3, 12, 8] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2]
+//checking level is odd & (curr.val is even || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 10 -> 4
+//queue = [ [3, 12, 8], [7, 6, null], [9, null, 2] ]
+//level = 0 -> 1 -> 2
+
+//queue = [ [3, 12, 8], [7, 6, null], [9, null, 2] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2], [3, 12, 8]
+//checking level is even & (curr.val is odd || curr val is greater than prev val) - true
+//prevVal = -9007199254740991 -> 3
+//queue = [ [7, 6, null], [9, null, 2], [12], [8] ]
+
+//queue = [ [7, 6, null], [9, null, 2], [12], [8] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2], [3, 12, 8], [7, 6, null]
+//checking level is even & (curr.val is odd || curr val is greater than prev val) - true
+//prevVal = -9007199254740991 -> 3 -> 7
+//queue = [ [9, null, 2], [12], [8], [6] ]
+
+//queue = [ [9, null, 2], [12], [8], [6] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2], [3, 12, 8], [7, 6, null], [9, null, 2]
+//checking level is even & (curr.val is odd || curr val is greater than prev val) - true
+//prevVal = -9007199254740991 -> 3 -> 7 -> 9
+//queue = [ [12], [8], [6], [2] ]
+//level = 0 -> 1 -> 2 -> 3
+
+//queue = [ [12], [8], [6], [2] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2], [3, 12, 8], [7, 6, null], [9, null, 2], [12]
+//checking level is odd & (curr.val is even || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 12
+
+//queue = [ [8], [6], [2] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2], [3, 12, 8], [7, 6, null], [9, null, 2], [12], [8]
+//checking level is odd & (curr.val is even || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 12 -> 8
+
+//queue = [ [6], [2] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2], [3, 12, 8], [7, 6, null], [9, null, 2], [12], [8], [6]
+//checking level is odd & (curr.val is even || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 12 -> 8 -> 6
+
+//queue = [ [2] ]
+//curr = [1,10,4,3,null,7,9,12,8,6,null,null,2], [10, 3, 12, 8], [4, 7, 9, 6, null, null, 2], [3, 12, 8], [7, 6, null], [9, null, 2], [12], [8], [6], [2]
+//checking level is odd & (curr.val is even || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 12 -> 8 -> 6 -> 2
+//level = 0 -> 1 -> 2 -> 3 -> 4
+
+//True
 
 evenOddTree([5,4,2,3,3,7]); //false
 //           5      -level 0
 //       4       2  -level 1
 //     3   3   7    -level 2
-
-//The node values on each level are:
-//Level 0: [5]
-//Level 1: [4,2]
-//Level 2: [3,3,7]
 //Node values in level 2 must be in strictly increasing order, so the tree is not Even-Odd
+
+//level = 0
+//prevVal = -9007199254740991
+
+//queue = [ [5,4,2,3,3,7] ] 
+//curr = [5,4,2,3,3,7]
+//checking level is even & (curr.val is odd || curr val is greater than prev val) - true
+//prevVal = -9007199254740991 -> 5
+//queue = [ [4, 3, 3], [2, 7] ]
+//level = 0 -> 1
+
+//queue = [ [4, 3, 3], [2, 7] ]
+//curr = [5,4,2,3,3,7, [4, 3, 3]
+//checking level is odd & (curr.val is odd || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 4
+//queue = [ [2, 7], [3], [3] ]
+
+//queue = [ [2, 7], [3], [3] ]
+//curr = [5,4,2,3,3,7, [4, 3, 3], [2, 7]
+//checking level is odd & (curr.val is odd || curr val is less than prev val) - true
+//prevVal = 9007199254740991 -> 4 -> 2
+//queue = [ [3], [3], [7] ]
+//level = 0 -> 1 -> 2
+
+//queue = [ [3], [3], [7] ]
+//curr = [5,4,2,3,3,7, [4, 3, 3], [2, 7], [3]
+//checking level is even & (curr.val is odd || curr val is greater than prev val) - true
+//prevVal = -9007199254740991 -> 3
+
+//queue = [ [3], [7] ]
+//curr = [5,4,2,3,3,7, [4, 3, 3], [2, 7], [3], [3]
+//checking level is even & (curr.val is odd || curr val is not greater than prev val) - false
 
 evenOddTree([5,9,1,3,5,7]); //false
 //           5      -level 0
 //       9       1  -level 1
 //     3   5   7    -level 2
 //Node values in the level 1 should be even integers
+
