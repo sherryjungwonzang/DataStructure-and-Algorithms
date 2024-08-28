@@ -13,7 +13,7 @@
 //initially all next pointers are set to NULL
 
 //Approach:
-//using queue with BFS
+//using BFS with queue
 var populateNextRightPointer = (root) => {
     //base case
     if (!root) return root;
@@ -28,52 +28,74 @@ var populateNextRightPointer = (root) => {
             let curr = queue.shift();
 
             if (i + 1 < levelSize) curr.next = queue[0]; //meaning there is a right element
+
+            //child nodes
             if (curr.left) queue.push(curr.left);
             if (curr.right) queue.push(curr.right);
         }
     }
+
     return root;
 }
 //TC: O(n) - visit each node once
 //SC: O(n)
-populateNextRightPointer([1,2,3,4,5,6,7]); //[1,#,2,3,$,4,5,6,7,#]
-//      1
-//    2   3
-//  4  5 6  7 
+populateNextRightPointer([1,2,3,4,5,6,7]); //[1,#,2,3,#,4,5,6,7,#]
+//        1
+//     2      3
+//  4   5   6   7 
+
 //levelSize = 1
-//queue = [1
-//curr = 1
+//queue = [ [1, 2, 3, 4, 5, 6, 7] ]
+//curr = [1, 2, 3, 4, 5, 6, 7]
 //i = 0
-//0+1 = 1 < 1 -> NO - meaning there is no node next to 1
+//0 + 1 = 1 < 1 -> NO - meaning there is no node next to 1
 //keeping next as NULL
+//queue = [ [2, 4, 5], [3, 6, 7] ]
 
 //levelSize = 2
-//queue = [2, 3
-//curr = 2
+//queue = [ [2, 4, 5], [3, 6, 7] ]
+//curr = [1, 2, 3, 4, 5, 6, 7], [2, 4, 5]
 //i = 0
-//0+1 = 1 < 2 -> YES - meaning there is right node next to 2
-//queue = [3
-//curr = 2 3
-//i = 2
-//1+1 = 2 < 2 -> NO - meaning there is no node next to 1
+//0 + 1 = 1 < 2 -> YES - meaning there is right node next to 2
+//curr.next = [3]
+//queue = [ [3, 6, 7] || [4], [5] ]
+
+//queue = [ [3, 6, 7] || [4], [5] ]
+//curr = [1, 2, 3, 4, 5, 6, 7], [2, 4, 5], [3, 6, 7] 
+//i = 1
+//1 + 1 = 1 = 2 -> NO - meaning there is no node next to 3
 //keeping next as NULL
+//queue = [ [4], [5], [6], [7] ]
 
 //levelSize = 4
-//queue = [4,5,6,7
-//curr = 4
+//queue = [ [4], [5], [6], [7] ]
+//curr = [1, 2, 3, 4, 5, 6, 7], [2, 4, 5], [3, 6, 7], [4]
 //i = 0
-//0+1 = 1 < 4 -> YES - meaning there is right node next to 4
-//curr = 4, 5
-//i = 1
-//1+1 = 1 < 4 -> YES - meaning there is right node next to 5
-//curr = 4, 5, 6
-//i = 2
-//2+1 = 1 < 4 -> YES - meaning there is right node next to 6
-//curr = 4, 5, 6, 7
-//i = 3
-//3+1 = 1 < 4 -> NO - meaning there is no node next to 7
-//keeping next as NULL
+//0 + 1 = 1 < 4 -> YES - meaning there is right node next to 4
+//curr.next = [5]
+//queue = [ [5], [6], [7] ]
 
-//[1,#,2,3,$,4,5,6,7,#]
+//queue = [ [5], [6], [7] ]
+//curr = [1, 2, 3, 4, 5, 6, 7], [2, 4, 5], [3, 6, 7], [4], [5]
+//i = 1
+//1 + 1 = 2 < 4 -> YES - meaning there is right node next to 5
+//curr.next = [6]
+//queue = [ [6], [7] ]
+
+//queue = [ [6], [7] ]
+//curr = [1, 2, 3, 4, 5, 6, 7], [2, 4, 5], [3, 6, 7], [4], [5], [6]
+//i = 2
+//2 + 1 = 3 < 4 -> YES - meaning there is right node next to 6
+//curr.next = [7]
+//queue = [ [7] ]
+
+//queue = [ [7] ]
+//curr = [1, 2, 3, 4, 5, 6, 7], [2, 4, 5], [3, 6, 7], [4], [5], [6], [7]
+//i = 3
+//3 + 1 = 4 = 4 -> NO - meaning there is no node next to 7
+//keeping next as NULL
+//queue = [ ]
+
+//[1, #, 2, 3, #, 4, 5, 6, 7, #]
 
 populateNextRightPointer([]); //[]
