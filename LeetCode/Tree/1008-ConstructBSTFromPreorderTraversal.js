@@ -15,7 +15,7 @@ var buildBSTPreOrder = (preorder) => {
         if (i === preorder.length) return null;
 
         //traversing
-        if (preorder[index] >= lower && preorder[index] < upper) {
+        if (preorder[i] >= lower && preorder[i] < upper) {
             let root = new TreeNode(preorder[i++]);
             root.left = bst(lower, root.val);
             root.right = bst(root.val, upper);
@@ -25,6 +25,8 @@ var buildBSTPreOrder = (preorder) => {
 
         return null;
     }
+
+    return bst(-Infinity, Infinity);
 }
 buildBSTPreOrder([1,3]); //[1, null, 3]
 //    1            1
