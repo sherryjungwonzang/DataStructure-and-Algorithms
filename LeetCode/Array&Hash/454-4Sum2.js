@@ -19,7 +19,7 @@ var fourSum2 = (nums1, nums2, nums3, nums4) => {
 
         //iterating
         for (let i = 0; i < len; i++) {
-            for (let i = 0; j < len; j++) {
+            for (let j = 0; j < len; j++) {
                 let sum = x[i] + y[j];
 
                 res.set(sum, res.get(sum) + 1 || 1);
