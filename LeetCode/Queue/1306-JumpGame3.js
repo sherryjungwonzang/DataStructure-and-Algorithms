@@ -16,7 +16,9 @@ var jumpGame3 = (arr, start) => {
         let curr = queue.shift();
         let next = [];
 
-        if (arr[curr] === 0) return true //base case
+        //base case
+        if (arr[curr] === 0) return true;
+
         //setting the next
         if (curr + arr[curr] < n) next.push(curr + arr[curr]);
         if (curr - arr[curr] >= 0) next.push(curr - arr[curr]);
@@ -24,6 +26,7 @@ var jumpGame3 = (arr, start) => {
         for (let n of next) {
             if (!visited[n]) {
                 visited[n] = true;
+
                 queue.push(n);
             }
         }
@@ -46,36 +49,71 @@ jumpGame3(arr = [4,2,3,0,3,1,2], start = 5); //true
 //queue = [ 6, 4 ]
 
 //queue = [ 6, 4 ]
-//curr = [ 5 || 6 ]
-//6 + 2 = 8 > 7
+//curr = [ 5, 6 ]
+//6 + 2 = 8 > 7 -> invalid
 //6 - 2 >= 4 >= 0
-//next = [4, ]
-//curr = [ 5 || 6, 4 ]
-//4 + 3 = 7 = 7
+
+//queue = [ 4 ]
+//curr = [ 5, 6, 4 ]
+//4 + 3 = 7 = 7 -> invalid
 //4 - 3 >= 1 >= 0
-//next = [4, 1]
+//next = [1]
 //visited = [F, T, F, F, T, F, T]
 //queue = [ 1 ]
 
 //queue = [ 1 ]
-//curr = [ 5 || 6, 4 || 1, ]
+//curr = [ 5, 6, 4, 1, ]
 //1 + 2 = 3 < 7
-//1 - 2 < 0
+//1 - 2 < 0 -> invalid
 //next = [ 3 ]
 //visited = [F, T, F, T, T, F, T]
 //queue = [ 3 ]
 
 //queue = [ 3 ]
-//curr = [ 5 || 6, 4 || 1 || 3 ]
-//3 + 0 = 3 < 7
-//3 - 0 = 3 >= 0
-//next = [ 3 ]
+//curr = [ 5, 6, 4, 1, 3 ]
+//3 + 0 = 3 < 7 -> already visited
+//3 - 0 = 3 >= 0 -> already visited
 //visited = [F, T, F, T, T, F, T]
 
 //True
 
 jumpGame3(arr = [3,0,2,1,2], start = 2); //false
 //There is no way to reach at index 1 with value 0
+
+//visited = [F, F, F, F, F]
+//queue = [ 2, ]
+//curr = 2, 
+//2 + 2 = 4 < 5
+//2 - 2 = 0 >= 0
+//next = [ 4, 0 ]
+//visited = [T, F, F, F, T]
+//queue = [ 4, 0 ]
+
+//queue = [ 4, 0 ]
+//curr = 2, 4, 
+//4 + 2 = 6 < 5 -> invalid
+//4 - 2 = 2 >= 0
+//next = [ 2 ]
+//visited = [T, F, T, F, T]
+//queue = [ 0, 2 ]
+
+//queue = [ 0, 2 ]
+//curr = 2, 4, 0
+//0 + 3 = 3 < 5 
+//0 - 3 = -3 >= 0 -> invalid
+//next = [ 3 ]
+//visited = [T, F, T, T, T]
+//queue = [ 2, 3 ]
+
+//queue = [ 2, 3 ]
+//curr = 2, 4, 0, 2
+//already visited 2
+//arr[2] != 0 -> return false
+
+//queue = [ 3 ]
+//curr = 2, 4, 0, 2, 3
+//already visited 3
+//arr[3] != 0 -> return false
 
 jumpGame3(arr = [4,2,3,0,3,1,2], start = 0); //true
 //One possible way to reach at index 3 with value 0 is: 
