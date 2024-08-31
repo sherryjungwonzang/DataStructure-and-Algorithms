@@ -106,4 +106,25 @@ maxProbability(n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.5,0.5,0.2], sta
 maxProbability(n = 3, edges = [[0,1],[1,2],[0,2]], succProb = [0.5,0.5,0.3], start = 0, end = 2); //0.30000
 
 maxProbability( n = 3, edges = [[0,1]], succProb = [0.5], start = 0, end = 2); //0.00000 - there is no path between 0 and 2
+//adjList = {
+//      0: [ [1, 0.5] ]
+//      1: [ [0, 0.5] ]
+//      2: [ ]
+//}
 
+//visited = [1, 0, 0]
+
+//queue = [ [0, 1] ]
+//curr = [0, 1]
+//nextNode = 1 || nextProb: 0.5
+//newProb = 1 * 0.5 = 0.5
+//0.5 > 0 -> updating visited = [1, 0.5, 0]
+//queue = [ [1, 0.5] ]
+
+//queue = [ [1, 0.5] ]
+//curr = [0, 1], [1, 0.5]
+//nextNode = 0 || nextProb: 0.5
+//newProb = 0.5 * 0.5 = 0.25
+//0.25 < 1
+
+//visited[2] = 0
