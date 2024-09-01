@@ -9,40 +9,33 @@
 //return true if there is a valid path from source to destination
 //otherwise, false
 var findPath = (n, edges, source, destination) => {
-    let graph = new Map();
+    let adjList = new Map();
     let visited = new Set();
     
     //creating an adjList
     for (let [v, e] of edges) {
         //for vertices
-        if (graph.has(v)) {
-            graph.get(v).push(e); //getting key and push value in the map
-        } else {
-            graph.set(v, [e]);
-        }
-
+        if (adjList.has(v)) adjList.get(v).push(e); //getting key and push value in the map
+        else adjList.set(v, [e]);
+        
         //for edges
-        if (graph.has(e)) {
-            graph.get(e).push(v);
-        } else {
-            graph.set(e, [v]);
-        }
+        if (adjList.has(e)) adjList.get(e).push(v);
+        else adjList.set(e, [v]);
     }
 
-    //creating DFS function
+    //DFS
     function dfs(vertex) {
         visited.add(vertex);
 
-        let neighbors = graph.get(vertex);
+        let neighbors = adjList.get(vertex);
 
-        if (neighbors && neighbors.length > 0) {
+        if (neighbors && neighbors.length) {
             for (let i = 0; i < neighbors.length; i++) {
-                if (!visited.has(neighbors[i])) {
-                    dfs(neighbors[i]);
-                }
+                if (!visited.has(neighbors[i])) dfs(neighbors[i]);
             }
         }
     }
+
     dfs(source);
 
     return visited.has(destination);
@@ -52,5 +45,54 @@ findPath(3, [[0,1], [1,2], [2,0]], 0, 2); //true
 //0 -> 1 -> 2
 //0 -> 2
 
+//adjList = {
+//  0: [1, 2]
+//  1: [0, 2]
+//  2: [0, 1]
+//}
+//visited = { }
+
+//starting from dfs(0)
+//visitied = { 0, }
+//neighbor: 1 -> dfs(1)
+//          2 -> dfs(2)
+
+//dfs(1) 
+//visitied = { 0, 1, }
+//neighbor: 0 -> already visited
+//          2 -> dfs(2)
+
+//dfs(2) 
+//visitied = { 0, 1, 2, }
+//neighbor: 0 -> already visited
+//          1 -> already visited
+//True
+
+
 findPath(6, [[0,1], [0,2], [3,5], [5,4], [4,3]], 0, 5); //false
 //there is no path from vertext 0 to vertex 5
+
+//adjList = {
+//  0: [1, 2]
+//  1: [0]
+//  2: [0]
+//  3: [5]
+//  5: [3]
+//}
+//visited = { }
+
+//starting from dfs(0)
+//visitied = { 0, }
+//neighbor: 1 -> dfs(1)
+//          2 -> dfs(2)
+
+//dfs(1)
+//visitied = { 0, 1, }
+//neighbor: 0 -> already visited
+
+//dfs(2)
+//visitied = { 0, 1, 2, }
+//neighbor: 0 -> already visited
+
+//nothing connected anymore
+//False
