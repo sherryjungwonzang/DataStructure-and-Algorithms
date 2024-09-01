@@ -8,6 +8,9 @@
 //given edges and the integers n, source and destination
 //return true if there is a valid path from source to destination
 //otherwise, false
+
+//Approach:
+//using DFS with recursion
 var findPath = (n, edges, source, destination) => {
     let adjList = new Map();
     let visited = new Set();
