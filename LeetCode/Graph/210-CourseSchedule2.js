@@ -19,7 +19,13 @@ var courseSchedule2 = (numCourses, prerequisites) => {
         adjList[a].push(b);
     }
 
+    for (let i = 0; i < numCourses; i++) {
+        if (visited[i] === 0 && !dfs(i)) return [];
+    }
+
+    //DFS
     function dfs(curr) {
+        //base setting
         visited[curr] = 1;
 
         if (adjList[curr]) {
@@ -29,23 +35,68 @@ var courseSchedule2 = (numCourses, prerequisites) => {
             }
         }
 
-        visited[curr] = '#'; //indicating that we visited
+        visited[curr] = '#'; //to avoid duplicates
+
         res.push(curr);
 
         return true; //meaning has no cycle
     };
-
-    for (let i = 0; i < numCourses; i++) {
-        if (visited[i] === 0 && !dfs(i)) return [];
-    }
 
     return res;
 }
 courseSchedule2(2, [[1,0]]); //[0,1] - There are a total of 2 courses to take
 //To take course 1 you should have finished course 0
 
+//adjList: {
+//      1: 0
+//}
+//visited = [0, 0]
+
+//i = 0 || dfs(0)
+//visited = [1, 0]
+//neighbor: N/A
+//visited = [1, 0] -> [#, 0]
+//res = [ 0 ] || True
+
+//i = 1 || dfs(1)
+//visited = [#, 1]
+//neighbor: 0 & dfs(0) != null
+//visited = [#, 1] -> [#, #]
+//res = [ 0, 1 ] || True
+
 courseSchedule2(4, [[1,0],[2,0],[3,1],[3,2]]); //[0,2,1,3]
 //There are a total of 4 courses to take
 //To take course 3 you should have finished both courses 1 and 2
 //Both courses 1 and 2 should be taken after you finished course 0
 //So one correct course order is [0,1,2,3]. Another correct ordering is [0,2,1,3]
+
+//adjList: {
+//      1: [0]
+//      2: [0]
+//      3: [1, 2]
+//}
+//visited = [0, 0, 0, 0]
+
+//i = 0 || dfs(0)
+//visited = [0, 0, 0, 0]
+//neighbor: N/A
+//visited = [0, 0, 0, 0] -> [#, 0, 0, 0]
+//res = [ 0 ] || True
+
+//i = 1 || dfs(1)
+//visited = [#, 1, 0, 0]
+//neighbor: 0 - already visited
+//visited = [#, 1, 0, 0] -> [#, #, 0, 0]
+//res = [ 0, 1 ] || True
+
+//i = 2 || dfs(2)
+//visited = [#, #, 1, 0]
+//neighbor: 0 - already visited
+//visited = [#, #, 1, 0] -> [#, #, #, 0]
+//res = [ 0, 1, 2 ] || True
+
+//i = 3 || dfs(3)
+//visited = [#, #, #, 1]
+//neighbor: 1, 2 - already visited
+//visited = [#, #, #, 1] -> [#, #, #, #]
+//res = [ 0, 1, 2, 3 ] || True
