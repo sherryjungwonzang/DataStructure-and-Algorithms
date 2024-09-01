@@ -51,7 +51,7 @@ var accountsMerge = (accounts) => {
         for (neigh of neighbors) {
             if (!visited.has(neigh)) dfs(neigh, result);
         }
-        
+
         return result;
     };
 
@@ -123,8 +123,8 @@ accountsMerge([["John","johnsmith@mail.com","john_newyork@mail.com"],["John","jo
 
 //i = 2 -> [2][1] = "mary@mail.com"
 //dfs("mary@mail.com", [])
-//visited = { "johnsmith@mail.com" , "john_newyork@mail.com", "john00@mail.com", "mary@mail.com" }
-//result = { "johnsmith@mail.com" , "john_newyork@mail.com", "john00@mail.com", "mary@mail.com" }
+//visited = { "mary@mail.com" }
+//result = { "mary@mail.com" }
 //neighbor: []
 //dfs("mary@mail.com", []) -> return = [ "mary@mail.com" ]
 //-> res = ['John'|| "john00@mail.com", "john_newyork@mail.com", "johnsmith@mail.com", 
@@ -133,8 +133,8 @@ accountsMerge([["John","johnsmith@mail.com","john_newyork@mail.com"],["John","jo
 
 //i = 3 -> [3][1] = "johnnybravo@mail.com"
 //dfs("johnnybravo@mail.com" [])
-//visited = { "johnsmith@mail.com" , "john_newyork@mail.com", "john00@mail.com", "mary@mail.com", "johnnybravo@mail.com" }
-//result = { "johnsmith@mail.com" , "john_newyork@mail.com", "john00@mail.com", "mary@mail.com", "johnnybravo@mail.com" }
+//visited = { "johnnybravo@mail.com" }
+//result = { "johnnybravo@mail.com" }
 //neighbor: []
 //dfs("johnnybravo@mail.com" []) -> return = [ "johnnybravo@mail.com"]
 //-> res = ['John'|| "john00@mail.com", "john_newyork@mail.com", "johnsmith@mail.com"
