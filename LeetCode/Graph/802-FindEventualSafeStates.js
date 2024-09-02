@@ -9,9 +9,7 @@
 //return an array containing all the safe nodes of the graph
 
 //Approach:
-//using Map and DFS for traversing neighbors
-//setting false if there is a cycle in map
-//setting true if there is no cycle in map
+//Using DFS with recursion
 var findEventualSafeStates = (graph) => {
     let visited = new Array(graph.length).fill(0); //0 - unvisited, 1 - visiting, 2 - visited
     let res = [];
