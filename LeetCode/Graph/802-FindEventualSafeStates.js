@@ -13,64 +13,160 @@
 //setting false if there is a cycle in map
 //setting true if there is no cycle in map
 var findEventualSafeStates = (graph) => {
-    let m = graph.length;
+    let visited = new Array(graph.length).fill(0); //0 - unvisited, 1 - visiting, 2 - visited
     let res = [];
-    let map = new Map();
 
-    //travering graph
-    for (let i = 0; i < m; i++) {
-        if (dfs(graph, i, map)) res.push(i);
+    for (let i = 0; i < graph.length; i++) {
+        if (dfs(i)) res.push(i);
     }
 
-    function dfs(graph, node, map) {
+    //DFS
+    function dfs(node) {
         //base case
-        if (map.has(node)) return map.get(node);
+        if (visited[node] === 1) return false;
+        if (visited[node] === 2) return true;
 
-        //setting as false initially
-        map.set(node, false);
+        //visiting
+        visited[node] = 1;
 
-        //traversing each node's neighbors
-        for (let neigh of graph[node]) {
-            if (!dfs(graph, neigh, map)) return false;
+        //checking connections
+        for (let next of graph[node]) {
+            if (!dfs(next)) return false;
         }
 
-        //setting as true if there is no cycle
-        map.set(node, true);
+        //visited
+        visited[node] = 2;
 
         return true;
-    };
+    }
 
     return res;
 }
 findEventualSafeStates([[1,2],[2,3],[5],[0],[5],[],[]]); //[2,4,5,6]
-//Nodes 5 and 6 are terminal nodes as there are no outgoing edges from either of them.
+//Nodes 5 and 6 are terminal nodes as there are no outgoing edges from either of them
 //Every path starting at nodes 2, 4, 5, and 6 all lead to either node 5 or 6
 
-//map: {}
-//[[1,2],[2,3],[5],[0],[5],[],[]]
-//   0     1    2   3   4   5  6
-//   ^
-//map: { 0: F, 1: F, 2: F }
+//visited = [0, 0, 0, 0, 0, 0, 0]
+//res = [ ]
 
-//              ^
-//map: { 0: F, 1: F, 2: F, 5: F }
+//i = 0 - starting with dfs(0)
+//dfs(0)
+//visited = [1, 0, 0, 0, 0, 0, 0]
+//-> dfs(1)
+//-> dfs(2)
 
-//                          ^
-//map: { 0: F, 1: F, 2: F -> T, 5: F -> T }
-//res = [2, 5]
+//dfs(1)
+//visited = [1, 1, 0, 0, 0, 0, 0]
+//-> dfs(2)
+//-> dfs(3)
 
-//          ^
-//map: { 0: F, 1: F, 2: F -> T, 5: F -> T, 3: F }
+//dfs(2)
+//visited = [1, 1, 1, 0, 0, 0, 0]
+//-> dfs(5)
 
-//                       ^
-//map: { 0: F, 1: F, 2: F -> T, 5: F -> T, 3: F, 4: F -> T }
-//res = [2, 5, 4]
+//dfs(5)
+//visited = [1, 1, 1, 0, 0, 1, 0]
+//-> dfs([]) = null
+//False
+//visited = [1, 1, 1, 0, 0, 2, 0]
 
-//                                 ^
-//map: { 0: F, 1: F, 2: F -> T, 5: F -> T, 3: F, 4: F -> T, 6: F -> T }
-//res = [2, 5, 4, 6]
+//dfs(2) is done -> visited = [1, 1, 2, 0, 0, 2, 0]
 
-//-> res = [2, 4, 5, 6]
+//dfs(3)
+//visited = [1, 1, 2, 1, 0, 2, 0]
+//-> dfs(0): visiting
+//False
+
+//i = 0 -> False
+//dfs(0) -> dfs(1) = False
+//          dfs(2) = False
+//dfs(1) -> dfs(2) = False
+//          dfs(3) = False
+//res = [ ]
+
+//i = 1
+//dfs(1): already visiting
+//visited = [1, 1, 2, 1, 0, 2, 0]
+//False
+//res = [ ]
+
+//i = 2
+//dfs(5): already visited
+//visited = [1, 1, 2, 1, 0, 2, 0]
+//True
+//res = [ 2, ]
+
+//i = 3
+//dfs(0): already visiting
+//visited = [1, 1, 2, 1, 0, 2, 0]
+//False
+//res = [ 2, ]
+
+//i = 4
+//dfs(4)
+//visited = [1, 1, 2, 1, 1, 2, 0]
+//-> dfs(5): already visited
+//True
+//visited = [1, 1, 2, 1, 2, 2, 0]
+//res = [ 2, 4 ]
+
+//i = 5
+//dfs(5)
+//visited = [1, 1, 2, 1, 2, 2, 0]
+//-> next: []
+//res = [ 2, 4, 5 ]
+
+//i = 6
+//dfs(6)
+//visited = [1, 1, 2, 1, 2, 2, 1]
+//-> next: []
+//res = [ 2, 4, 5, 6 ]
 
 findEventualSafeStates([[1,2,3,4],[1,2],[3,4],[0,4],[]]); //[4]
 //Only node 4 is a terminal node, and every path starting at node 4 leads to node 4
+
+//visited = [0, 0, 0, 0, 0]
+//res = [ ]
+
+//i = 0 - starting with dfs(0)
+//dfs(0)
+//visited = [1, 0, 0, 0, 0]
+//-> dfs(1)
+//-> dfs(2)
+//-> dfs(3)
+//-> dfs(4)
+
+//dfs(1)
+//visited = [1, 1, 0, 0, 0]
+//-> dfs(1)
+//-> dfs(2)
+
+//i = 1
+//dfs(1): already visiting
+//visited = [1, 1, 0, 0, 0]
+//False
+//res = [ ]
+
+//i = 2
+//dfs(2)
+//visited = [1, 1, 1, 0, 0]
+//-> dfs(3)
+//-> dfs(4)
+
+//dfs(3)
+//visited = [1, 1, 1, 1, 0]
+//-> dfs(0)
+//-> dfs(4)
+
+//i = 3
+//dfs(3): already visiting
+//visited = [1, 1, 1, 1, 0]
+//False
+//res = [ ]
+
+//i = 4
+//dfs(4)
+//visited = [1, 1, 1, 1, 1]
+//-> next: []
+//visited = [1, 1, 1, 1, 2]
+//res =[ 4 ]
