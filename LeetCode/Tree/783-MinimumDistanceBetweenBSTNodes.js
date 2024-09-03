@@ -11,12 +11,12 @@ var minDifferenceBST = (root) => {
     //inorder traversal:eft - root - right
     function inorder(root) {
         //base case
-        if (!root) return;
+        if (root === null) return;
 
         //left
         inorder(root.left);
 
-        if (!!prev) minDiff = Math.min(minDiff, root.val - prev); //prev is not null
+        if (prev !== null) minDiff = Math.min(minDiff, root.val - prev); //prev is not null
 
         //updating prev
         prev = root.val;
