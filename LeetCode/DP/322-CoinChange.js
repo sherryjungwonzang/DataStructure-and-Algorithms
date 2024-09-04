@@ -16,11 +16,11 @@ var coinChange = (coins, amount) => {
     for (let currAmount = 1; currAmount <= amount; currAmount++) {
         for (let coin of coins) {
             //dp[currAmount - coin]: the min number of coins required to make up the amount using all the coins except the curr coin
-            if (currAmount - coin >= 0) dp[currAmount] = Math.min(currAmount, 1 + dp[currAmount - coin]);
+            if (currAmount - coin >= 0) dp[currAmount] = Math.min(dp[currAmount], 1 + dp[currAmount - coin]);
         }
     }
-
-    return dp[amount] > amount ? -1: dp[amount];
+    
+    return dp[amount] > amount ? -1 : dp[amount];
 }
 //TC: O(s * n) - s is the amount and n is the denomication of count
 //SC: O(s)
