@@ -10,7 +10,7 @@
 //Approach:
 //using 2D DP array
 var uniquePaths = (a, b) => {
-    let dp = Array.from(Array(m), () => new Array(n));  //2D DP array
+    let dp = Array.from(Array(a), () => new Array(b));  //2D DP array
     let m = dp.length;
     let n = dp[0].length;
 
