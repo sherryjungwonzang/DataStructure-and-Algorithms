@@ -12,62 +12,76 @@
 //grouping (1 11 06) is invalid - because "06" cannot be mapped into 'F' since "6" is different from "06"
 
 //Approach:
-//DP Array
+//using DP
 var decodeWays = (s) => {
-  //base case - there is no possible solutions
-  if (s[0] === '0') return 0;
+    //base case
+    if (s[0] === '0') return 0;
 
-  //DP array
-  let dp = new Array(s.length + 1).fill(0);
+    //DP
+    let dp = new Array(s.length + 1).fill(0);
 
-  //base case
-  dp[0] = 1;
-  dp[1] = 1;
+    //base setting
+    dp[0] = 1;
+    dp[1] = 1;
 
-  for (let i = 2; i <= s.length; i++) {
-    //set single and double
-    let single = +s[i - 1];
-    let double = +(s[i - 2] + s[i - 1]);
+    for (let i = 2; i <= s.length; i++) {
+        //set single and double
+        let single = +s[i - 1];
+        let double = +(s[i - 2] + s[i - 1]);
 
-    //check single and double are within the range or not
-    if (single >= 1 && single <= 9) dp[i] += dp[i - 1];
-    if (double >= 10 && double <= 26) dp[i] += dp[i - 2];
-  }
-  return dp[s.length];
+        //check range
+        if (single >= 1 && single <= 9) dp[i] += dp[i - 1];
+        if (double >= 10 && double <= 26) dp[i] += dp[i - 2];
+    }
+
+    return dp[s.length];
 }
 //TC: O(n) 
 //SC: O(n)
 decodeWays("12"); //2 - 12 could be decoded as "AB" (1 2) or "L" (12)
 //s = 1 2
-//DP = [ 0 | 0 | 0 ]
+//DP = [ 0, 0, 0 ] -> [ 1, 1, 0 ]
 
-//applying the base cases
-//DP = [ 1 | 1 | 0 ]
-//               i
-//single = s[2-1] = s[1] = 2
-//double = s[2-2] + s[2-1] = s[0] +s[1] = 12
-//check single and double are in range or not -> YES
-//add DP[1] value and DP[0] value in DP[2] 
-//DP = [ 1 | 1 | 2 ]
-//return 2
+//"1 2"
+//   s
+// d d
+//i = 2
+//single = s[2-1] = s[1] = 2 -> dp[2] += dp[1] = 1
+//double = s[2-2] + s[2-1] = s[0] +s[1] = 12 -> dp[2] += dp[1] = 2
+//DP = [ 1, 1, 2 ]
 
 decodeWays("226"); //3 - 226 could be decoded as "B2" (2 26), "VF" (22 6)
 //s = 2 2 6
-//DP = [ 0 | 0 | 0 | 0 ]
+//DP = [ 0, 0, 0, 0 ] -> [ 1, 1, 2, 3 ]
 
-//applying the base cases
-//DP = [ 1 | 1 | 0 | 0 ]
-//               i
-//single = s[2-1] = s[1] = 2
-//double = s[2-2] + s[2-1] = s[0] +s[1] = 22
-//check single and double are in range or not -> YES
-//add DP[1] value and DP[0] value in DP[2] 
+//"2 2 6"
+//   s
+// d d
+//single = s[2-1] = s[1] = 2 -> dp[2] += dp[1] = 1
+//double = s[2-2] + s[2-1] = s[0] +s[1] = 22 -> dp[2] += dp[1] = 2
+//DP = [ 1, 1, 2, 0 ]
 
-//DP = [ 1 | 1 | 2 | 0 ]
-//                   i
-//single = s[3-1] = s[2] = 2
-//double = s[3-2] + s[3-1] = s[1] +s[2] = 26
-//check single and double are in range or not -> YES
-//add DP[2] value and DP[1] value in DP[3] 
-//DP = [ 1 | 1 | 2 | 3 ]
-//return 3
+//"2 2 6"
+//     s
+//   d d
+//single = s[3-1] = s[2] = 6 -> dp[3] += dp[2] = 2
+//double = s[3-2] + s[3-1] = s[1] +s[2] = 26 -> dp[2] += dp[1] = 26 -> dp[3] += dp[1] = 3
+//DP = [ 1, 1, 2, 3 ]
+
+decodeWays("229"); 
+//s = 2 2 9
+//DP = [ 0, 0, 0, 0 ] -> [ 1, 1, 2, 3 ]
+
+//"2 2 9"
+//   s
+// d d
+//single = s[2-1] = s[1] = 2 -> dp[2] += dp[1] = 1
+//double = s[2-2] + s[2-1] = s[0] +s[1] = 22 -> dp[2] += dp[1] = 2
+//DP = [ 1, 1, 2, 0 ]
+
+//"2 2 9"
+//     s
+//   d d
+//single = s[3-1] = s[2] = 6 -> dp[3] += dp[2] = 2
+//double = s[3-2] + s[3-1] = s[1] +s[2] = 29 -> 29 is out of bound
+//DP = [ 1, 1, 2, 2 ]
