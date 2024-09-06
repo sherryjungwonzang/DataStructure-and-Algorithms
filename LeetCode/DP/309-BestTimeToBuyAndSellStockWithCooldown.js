@@ -20,7 +20,7 @@ var bestTimeStockCooldown = (prices) => {
         //max profits
         coolDown = Math.max(prevCoolDown, prevSell); //(doing nothing, checking prevsell before being cooldown)
         sell = prevHold + price;
-        hold = Math.max(prevHold, prevCoolDown - price); //(keep holding stokc, checking "buy")
+        hold = Math.max(prevHold, prevCoolDown - price); //(keep holding stock, checking "buy")
     }
 
     return Math.max(sell, coolDown);
@@ -30,46 +30,40 @@ bestTimeStockCooldown([1,2,3,0,2]); //3 - [buy, sell, cooldown, buy, sell]
 //coolDown = 0
 //sell = 0
 //hold = -Infinity
+//DP = [0, 0, -Infi]
+//prevCoolDown     prevSell      prevHold        coolDown        Sell        Hold
+//     0               0            0       
+
 
 //[1, 2, 3, 0, 2]
 // p
-//dp = [0, 0, -Infi]
-//coolDown = max(0, 0) = 0
-//sell = -Infi + 1 = -Infi
-//hold = max (-Infi, 0 - 1) = -1
-//dp = [0, -Infi, -1]
+//prevCoolDown     prevSell      prevHold      coolDown          Sell                   Hold
+//     0               0            0          (0, 0) = 0        -Infi + 1 = -Infi      (-Infi, 0 - 1) = -1
+//DP = [0, -Infi, -1]
 
 //[1, 2, 3, 0, 2]
 //    p
-//dp = [0, -Infi, -1]
-//coolDown = max(0, -Infi) = 0
-//sell = -1 + 2 = 1
-//hold = max (-1, 0 - 2) = -1
-//dp = [0, 1, -1]
+//prevCoolDown     prevSell      prevHold      coolDown          Sell                   Hold
+//     0             -Infi          -1         (0, -Infi) = 0     -1 + 2 = 1          (-1, 0 - 2) = -1
+//DP = [0, 1, -1]
 
 //[1, 2, 3, 0, 2]
 //       p
-//dp = [0, 1, -1]
-//coolDown = max(0, 1) = 1
-//sell = -1 + 3 = 2
-//hold = max (-1, 1 - 3) = -1
-//dp = [1, 2, -1]
+//prevCoolDown     prevSell      prevHold      coolDown          Sell                   Hold
+//     0               1          -1           (0, 1) = 1       -1 + 3 = 2              (-1, 0 - 3) = -1
+//DP = [1, 2, -1]
 
 //[1, 2, 3, 0, 2]
 //          p
-//dp = [1, 2, -1]
-//coolDown = max(1, 2) = 2
-//sell = -1 + 0 = -1
-//hold = max (-1, 1 - 0) = 1
-//dp = [2, -1, 1]
+//prevCoolDown     prevSell      prevHold      coolDown          Sell                   Hold
+//     1               2          -1           (1, 2) = 2       -1 + 0 = -1             (-1, 1 - 0) = 1
+//DP = [2, -1, 1]
 
 //[1, 2, 3, 0, 2]
 //             p
-//dp = [2, -1, 1]
-//coolDown = max(2, -1) = 2
-//sell = 1 + 2 = 3
-//hold = max (1, 2 - 2) = 1
-//dp = [2, 3, 1]
+//prevCoolDown     prevSell      prevHold      coolDown          Sell                   Hold
+//     2               -1           1          (2, -1) = 2       1 + 2 = 3             (1, 2 - 2) = 1
+//DP = [2, 3, 1]
+//max between coolDown and sell = 3
 
 bestTimeStockCooldown([1]); //0
-
