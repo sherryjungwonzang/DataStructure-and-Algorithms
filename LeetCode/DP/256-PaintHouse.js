@@ -5,7 +5,7 @@
 //you have to paint all the houses such that no two adjacent houses have the same color
 
 //the cost of painting each house with a certain color is represented by n x 3 cost matrix
-//for example, costs[0][0] is the cost of pain\ting house 0 with color red
+//for example, costs[0][0] is the cost of painting house 0 with color red
 //costs[1][2] is the cost of painting house 1 with color green, and so on
 //find the minimum cost to paint all houses
 
