@@ -15,6 +15,7 @@ var bestTimeStockTransactionFee = (prices, fee) => {
 
     for (let i = 1; i < prices.length; i++) {
         totalProfit = Math.max(totalProfit, hold + prices[i] - fee);
+    
         hold = Math.max(hold, totalProfit - prices[i]);
     }
 
@@ -29,31 +30,37 @@ bestTimeStockTransactionFee([1,3,2,8,4,9], 2); //8
 //Selling at prices[5] = 9
 //The total profit is ((8 - 1) - 2) + ((9 - 4) - 2) = 8
 
-//totalProfit = 0
-//hold = -1
+//totalProfit                             hold
+//0                                         -1
+
 //[1, 3, 2, 8, 4, 9]
 //    ^
-//totalProfit = max(0, -1 + 3 - 2) = 0
-//hold = max(-1, 0 - 3) = -1
+//totalProfit                             hold
+//max(0, -1 + 3 - 2) = 0                  max(-1, 0 - 3) = -1
+//totalProfit = 0, hold = -1
 
 //[1, 3, 2, 8, 4, 9]
 //       ^
-//totalProfit = max(0, -1 + 2 - 2) = 0
-//hold = max(-1, 0 - 2) = -1
+//totalProfit                             hold
+//max(0, -1 + 2 - 2) = 0                  max(-1, 0 - 2) = -1
+//totalProfit = 0, hold = -1
 
 //[1, 3, 2, 8, 4, 9]
 //          ^
-//totalProfit = max(0, -1 + 8 - 2) = 5
-//hold = max(-1, 5 - 8) = -1
+//totalProfit                             hold
+//max(0, -1 + 8 - 2) = 5                  max(-1, 5 - 8) = -1
+//totalProfit = 5, hold = -1
 
 //[1, 3, 2, 8, 4, 9]
 //             ^
-//totalProfit = max(5, -1 + 4 - 2) = 5
-//hold = max(-1, 5 - 4) = 1
+//totalProfit                             hold
+//max(5, -1 + 4 - 2) = 5                  max(-1, 5 - 4) = 1
+//totalProfit = 5, hold = 1
 
 //[1, 3, 2, 8, 4, 9]
 //                ^
-//totalProfit = max(5, 1 + 9 - 2) = 8
-//hold = max(1, 8 - 9) = 1
+//totalProfit                             hold
+//max(5, 1 + 9 - 2) = 8                   max(1, 8 - 9) = 1
+//totalProfit = 8, hold = 1
 
 bestTimeStockTransactionFee([1,3,7,5,10,3], 3); 6
