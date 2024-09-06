@@ -4,28 +4,25 @@
 //and return the product
 
 //Approach:
-//DP programming - to keep track of min and max value
-//curr - can generate maximum from any of these values
-//for maximum: + * + | - * - -> can be the maximum
-
+//using DP
 var maxProductSubarray = (nums) => {
-  //setting variables with nums[0]value
-  let prevMax = nums[0];
-  let prevMin = nums[0];
-  let res = nums[0];
+    let prevMax = nums[0];
+    let prevMin = nums[0];
+    let res = nums[0];
 
-  for (let i = 1; i < nums.length; i++) {
-    let currMax = Math.max(nums[i], nums[i] * prevMax, nums[i] * prevMin);
-    let currMin = Math.min(nums[i], nums[i] * prevMax, nums[i] * prevMin);
+    //max: + * + || - * -
+    for (let i = 1; i < nums.length; i++) {
+        let currMax = Math.max(nums[i], nums[i] * prevMax, nums[i] * prevMin);
+        let currMin = Math.min(nums[i], nums[i] * prevMax, nums[i] * prevMin);
 
-    //updating the prevMax and prevMin with currMax and currMin value
-    prevMax = currMax;
-    prevMin = currMin;
+        //updating
+        prevMax = currMax;
+        prevMin = currMin;
 
-    //update res
-    res = Math.max(res, currMax);
-  }
-  return res;
+        res = Math.max(res, currMax);
+    }
+
+    return res;
 }
 //TC: O(n^2) - loop through each and every possible solutions
 //Sc: O(n) - looping over the 'nums' array
@@ -34,7 +31,8 @@ maxProductSubarray([2, 3, -2, 4]); //6 - [2,3] has the largest product
 //prevMin = 2
 //res = 2
 
-//              i
+//[2, 3, -2, 4]
+//    i
 //currMax = max(3, 3*2, 3*2) = 6
 //currMin = min(3, 3*2, 3*2) = 3
 
@@ -42,7 +40,8 @@ maxProductSubarray([2, 3, -2, 4]); //6 - [2,3] has the largest product
 //prevMin = 2 -> 3
 //res = 2 -> 6
 
-//                  i
+//[2, 3, -2, 4]
+//       i
 //currMax = max(-2, -2*6, -2*3) = -2
 //currMin = min(-2, -2*6, -2*3) = -12
 
@@ -50,7 +49,8 @@ maxProductSubarray([2, 3, -2, 4]); //6 - [2,3] has the largest product
 //prevMin = 2 -> 3 -> -12
 //res = 2 -> 6 -> 6
 
-//                      i
+//[2, 3, -2, 4]
+//           i
 //currMax = max(4, 4*-2, -2*3) = -2
 //currMin = min(4, 4*-12, -2*3) = -48
 
@@ -64,7 +64,8 @@ maxProductSubarray([-2, 0, -1]); //0 - [-2,-1] cannnot be a subarray
 //prevMin = -2
 //res = -2
 
-//               i
+//[-2, 0, -1]
+//     i
 //currMax = max(0, 0*-2, 0*-2) = 0
 //currMin = min(0, 0*-2, 0*-2) = 0
 
@@ -72,7 +73,8 @@ maxProductSubarray([-2, 0, -1]); //0 - [-2,-1] cannnot be a subarray
 //prevMin = -2 -> 0
 //res = -2 -> 0
 
-//                  i
+//[-2, 0, -1]
+//         i
 //currMax = max(-1, -1*0, -1*0) = 0
 //currMin = min(-1, -1*0, -1*0) = 0
 
