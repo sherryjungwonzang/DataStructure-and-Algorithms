@@ -6,64 +6,70 @@
 //if you cannot achieve any profit - return 0
 
 //Approach:
-//set the first price as currMin and currMax as 0 and keep updating 
-//need to compare between current price and updated currMin
-//need to compare between currMax and the difference between price and currMin
-var bestStock = (prices) => {
-  //set currMin and currMax
-  let currMin = prices[0]; //setting with index[0] value
-  let currMax = 0; //if there is no profit, we need to return 0
+//using DP
+var bestTimeStock = (prices) => {
+    let currMax = 0; //no profit
+    let currMin = prices[0];
 
-  //looping through the array with comparing the difference
-  //between the prices[i] and currMin for minimum value
-  //between the currmax and prices[i] - currMin for maximum value
-  for (let i = 0; i < prices.length; i++) {
-    currMin = Math.min(prices[i], currMin);
-    currMax = Math.max(currMax, prices[i] - currMin);
-  }
-  return currMax;
+    for (let i = 1; i < prices.length; i++) {
+        currMax = Math.max(currMax, prices[i] - currMin); //prices[i] - currMin: profit
+        currMin = Math.min(prices[i], currMin);
+    }
+
+    return currMax;
 }
 //TC: O(n)
 //SC:O(1)
 maxProfit([7, 1, 5, 3, 6, 4]); //5 - buy on Day 2(price=1) and sell on Day5(price=6) -> profit = 6 - 1 = 5
-//        min
-//         i
-//currMin = 7
-//currMax = 0
-//            i
-//currMin = 7 -> 1
-//currMax = 0 -> 0
-//               i
-//currMin = 7 -> 1 -> 1
-//currMax = 0 -> 0 -> 5-1=4
-//                   i 
-//currMin = 7 -> 1 -> 1 -> 1
-//currMax = 0 -> 0 -> 5-1=4 -> 3-1=2 
-//                       i
-//currMin = 7 -> 1 -> 1 -> 1 -> 1
-//currMax = 0 -> 0 -> 5-1=4 -> 3-1=2 -> 6-1=5 
-//                          i
 //currMin = 7 -> 1 -> 1 -> 1 -> 1 -> 1
-//currMax = 0 -> 0 -> 5-1=4 -> 3-1=2 -> 6-1=5 -> 4-1=3
-//currMin = 1 | currMax = 5 
+//currMax = 0 -> 0 -> 4 -> 4 -> 5 -> 5
+
+
+//[7, 1, 5, 3, 6, 4]
+//    i
+//currMin = min(1, 7) = 1
+//currMax = max(0, 1 - 7) = 0
+
+//[7, 1, 5, 3, 6, 4]
+//       i
+//currMin = min(5, 1) = 1
+//currMax = max(5, 5 - 1) = 4
+
+//[7, 1, 5, 3, 6, 4]
+//          i
+//currMin = min(3, 1) = 1
+//currMax = max(4, 3 - 1) = 4
+
+//[7, 1, 5, 3, 6, 4]
+//             i
+//currMin = min(6, 1) = 1
+//currMax = max(1, 6 - 1) = 5
+
+//[7, 1, 5, 3, 6, 4]
+//                i
+//currMin = min(4, 1) = 1
+//currMax = max(5, 4 - 1) = 5
 
 maxProfit([7, 6, 4, 3, 1]); //0 - no transactions are done and the max profit is 6
-//        min
-//         i
-//currMin = 7
-//currMax = 0
-//currMin = min(7, 7) = 7 | 7 -> 7
-//currMax = max(0, 0) = 0 | 0 -> 0
-//            i
-//currMin = min(6, 7) = 6 | 7 -> 6
-//currMax = max(0, 6-6) = 0 | 0 -> 0
-//               i
-//currMin = min(6, 4) = 4 | 6 -> 4
-//currMax = max(0, 4-4) = 0 | 0 -> 0
-//                   i 
-//currMin = min(3, 4) = 3 | 4 -> 3
-//currMax = max(0, 3-3) = 0 | 0 -> 0
-//                      i
-//currMin = min(1, 3) = 1 | 3 -> 1
-//currMax = max(0, 1-1) = 0 | 0 -> 0
-//currMin = 1 | currMax = 0
+//currMin = 7 -> 6 -> 4 -> 3 -> 1
+//currMax = 0 -> 0 -> 0 -> 0 -> 0
+
+//[7, 6, 4, 3, 1]
+//    i
+//currMin = min(6, 7) = 6
+//currMax = max(0, 6 - 7) = 0
+
+//[7, 6, 4, 3, 1]
+//       i
+//currMin = min(4, 6) = 4
+//currMax = max(0, 4 - 6) = 0
+
+//[7, 6, 4, 3, 1]
+//          i
+//currMin = min(3, 4) = 3
+//currMax = max(0, 3 - 4) = 0
+
+//[7, 6, 4, 3, 1]
+//             i
+//currMin = min(1, 3) = 1
+//currMax = max(0, 1 - 3) = 0
