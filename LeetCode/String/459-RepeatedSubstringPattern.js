@@ -58,12 +58,6 @@ repeatedSubstringPattern("aba"); //false
 //                              j = 1 -> repeated = aa
 //                              j = 2 -> repeated = aaa
 
-//i = 2 || 3 % 2 != 0
-
-//i = 3 || 3 % 3 = 0
-//substr = s.slice(0, 3) = aba
-//repeated = " "                j = 0 -> repeated = aba
-
 //no repeated substring
 
 repeatedSubstringPattern("abab"); //true - substring "ab twice"
