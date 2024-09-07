@@ -7,7 +7,7 @@
 var repeatedSubstringPattern = (s) => {
     let n = s.length;
 
-    for (let i = 1; i <= n; i++) {
+    for (let i = 1; i <= n / 2; i++) {
         if (n % 1 === 0) { //valid repeated substr length
             let substr = s.slice(0, i);
             let repeated = "";
