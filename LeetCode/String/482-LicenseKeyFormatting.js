@@ -9,12 +9,13 @@
 //using reget
 var licenseKeyFormatting = (s, k) => {
     let regex = /\-/g;
-    let head = s.length % k;
-    let res = [];
 
     //remove dashes
     s = s.replace(regex, "");
 
+    let head = s.length % k;
+    let res = [];
+    
     //for first group
     if (head) res.push(s.substring(0, head));
 
