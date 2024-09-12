@@ -5,6 +5,9 @@
 //given an integer array nums representing the data status of this set after the error
 //find the number that occurs twice and the number that is missing
 //return them in the form of an array
+
+//Approach:
+//using hash map
 var setMismatch = (nums) => {
     let n = nums.length;
     let arr = new Array(n + 1).fill(0);
