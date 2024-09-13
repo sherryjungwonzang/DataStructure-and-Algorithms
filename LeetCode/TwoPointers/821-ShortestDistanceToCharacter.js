@@ -18,6 +18,9 @@ var shortestToChar = (s, c) => {
         res[i] = Math.abs(prev - i); //distance
     }
 
+    //resetting
+    prev = Infinity;
+    
     //distance from right to left
     for (let i = n - 1; i >= 0; i--) {
         if (s[i] === c) prev = i;
