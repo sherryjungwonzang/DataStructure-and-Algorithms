@@ -33,10 +33,13 @@ mergeTwoBinaryTrees([1,3,2,5], [2,1,3,null,4,null,7]); //[3,4,5,5,4,null,7]
 //merge([2, 5], [1, null, 4]) = 4
 //3 + 1 = 4 as root
 //left: merge([5], []) = 5
-//right: merge([], []) = null
+//right: merge([], [4]) = 4
 
 //merge([5], [])
-//nothing on root2's right 5 + 0 = 5 as root
+//nothing on root2's left 5 + 0 = 5 as root
+
+//merge([], [4])
+//nothing on root1's right 4 + 0 = 5 as root
 
 //merge([2], [3, null, 7]) = 5
 //2 + 3 = 5 as root
@@ -44,7 +47,7 @@ mergeTwoBinaryTrees([1,3,2,5], [2,1,3,null,4,null,7]); //[3,4,5,5,4,null,7]
 //right: merge([], [7]) = 7
 
 //merge([], [7])
-//nothing on root2's left 7 + 0 = 7 as root
+//nothing on root1's left 7 + 0 = 7 as root
 
 //[3,4,5,5,4,null,7]
 
@@ -58,6 +61,6 @@ mergeTwoBinaryTrees([1], [1, 2]); //[2,2]
 //right: merge([2], []) = 2
 
 //merge([2], [])
-//nothing on root2's right 2 + 0 = 2 as root
+//nothing on root1's right 2 + 0 = 2 as root
 
 //[2, 2]
