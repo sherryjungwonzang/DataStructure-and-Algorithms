@@ -1,4 +1,4 @@
-//2331. Largest Number After Digit Swaps By Parity
+//2231. Largest Number After Digit Swaps By Parity
 //given a positive integer num
 //may swap any two digits of num that have the same parity - both odd digits or both even digits
 //return the largest possible value of num after any number of swaps
