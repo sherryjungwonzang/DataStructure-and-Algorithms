@@ -12,7 +12,7 @@ var tribonacciNum = (n) => {
     //base case
     if (n < 2) return n;
 
-    let dp = dp[0, 1, 1];
+    let dp = [0, 1, 1];
 
     //DP
     for (let i = 3; i <= n; i++) {
