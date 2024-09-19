@@ -11,7 +11,7 @@ var maxPopulationYesr = (logs) => {
     //sorting
     logs.sort((a, b) => a[0] - b[0]);
 
-    let population = Inifnity;
+    let population = Infinity;
     let max = -Infinity;
     let set = new Set(); //to collect birth years
 
