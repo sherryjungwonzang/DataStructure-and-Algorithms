@@ -9,7 +9,7 @@ var perfectNumber = (num) => {
 
     for (let i = 1; i <= num / 2; i++) {
         //perfect number
-        if (num % i === 0) count += 1;
+        if (num % i === 0) count += i;
     }
 
     return num === count;
