@@ -14,7 +14,6 @@ var binaryGap = (n) => {
     let res = 0;
     let endPoint = 0; //to calculate the length
 
-    //sliding window
     for (let i = 0; i < binary.length; i++) {
         if (binary[i] === "1") {
             res = Math.max(res, i - endPoint); //updating max length
