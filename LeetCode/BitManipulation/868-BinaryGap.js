@@ -8,7 +8,7 @@
 //for example, the two 1's in "1001" have a distance of 3
 
 //Approach:
-//using toString and sliding window
+//using toString
 var binaryGap = (n) => {
     let binary = n.toString(2);
     let res = 0;
