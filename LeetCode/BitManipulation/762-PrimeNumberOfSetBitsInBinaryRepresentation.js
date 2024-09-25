@@ -11,6 +11,7 @@ var primeSetBits = (left, right) => {
     let prime = new Set([2, 3, 5, 7, 11, 13, 17, 19]);
     let count = 0;
     
+    //for checking only 1's amount
     for (let i = left; i <= right; i++) {
         if (prime.has(i.toString(2).replace(/0/g, '').length)) count++;
     }
