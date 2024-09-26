@@ -9,7 +9,7 @@
 var countSmallerNums = (nums) => {
     //sorting - ascending
     let sorted = nums.slice().sort((a, b) => b - a);
-    let map = new Map(sorted.map((num, index) => [num, nums.length - index - 1]));
+    let map = new Map(sorted.map((num, index) => [num, nums.length - index - 1])); //count the rest numbers 
 
     return nums.map(num => map.get(num));
 }
