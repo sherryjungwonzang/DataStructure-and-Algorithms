@@ -54,7 +54,7 @@ uniqueMorseCode(words = ["gin","zen","gig","msg"]); //2
 
 //word = "g i n"                    word = "z e n"                      word = "g i g"                      word = "m s g"
 //            ^                                 ^                                   ^                                   ^
-//"n" = 110 - 97 = 13 -> "-."       "n" = 101 - 97 = 4 -> "."           "g" = 103 - 97 = 6 -> "--."         "g" = 103 - 97 = 6 -> "--." 
+//"n" = 110 - 97 = 13 -> "-."       "n" = 101 - 97 = 4 -> "-."           "g" = 103 - 97 = 6 -> "--."         "g" = 103 - 97 = 6 -> "--." 
 //transformation = "--...-."        transformation = "--...-."          transformation = "--...--."         transformation = "--...--." 
 //set = [ "--...-." ]               set = [ "--...-." ] -> duplicate    set = [ "--...-.", "--...--." ]     set = [ "--...-.", "--...--." ] -> duplicate
 
