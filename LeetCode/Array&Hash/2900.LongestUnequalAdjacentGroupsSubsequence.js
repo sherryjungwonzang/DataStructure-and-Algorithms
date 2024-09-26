@@ -36,7 +36,7 @@ longestUnequalAdjacentSubsequence(words = ["e","a","b"], groups = [0,0,1]); //["
 // i  j     -> i = j
 
 //[0, 0, 1]
-//    i  j     -> i != j
+// i     j     -> i != j
 //res = [ "e", "b"]
 
 longestUnequalAdjacentSubsequence(words = ["a","b","c","d"], groups = [1,0,1,1]); //["a","b","c"]
