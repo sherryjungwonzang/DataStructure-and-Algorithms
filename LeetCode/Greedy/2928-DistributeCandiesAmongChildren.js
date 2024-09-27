@@ -9,7 +9,7 @@ var distributeCandy = (n, limit) => {
     let res = 0;
 
     for (let i = 0; i <= limit; i++) {
-        let firstDistribute = n - 1; //candy amount - i
+        let firstDistribute = n - i; //candy amount - i
 
         for (let j = 0; j <= limit; j++) {
             let secondDistribute = firstDistribute - j;
