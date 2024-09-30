@@ -46,11 +46,18 @@ balancedStrings("RLRRLLRLRL"); //4 - "RL", "RRLL", "RL", "RL"
 //balanced = 0 -> 1 -> 2
 
 //"R L R R L L R L R L"
-//             ^ ^ ^ ^
-//countL = 0 -> 1 -> 2
-//countR = 0 -> 1 -> 2
+//             ^ ^ 
+//countL = 0 -> 1 
+//countR = 0 -> 1 
 //countL = countR -> balanced
 //balanced = 0 -> 1 -> 2 -> 3
+
+//"R L R R L L R L R L"
+//                 ^ ^
+//countL = 0 -> 1 
+//countR = 0 -> 1 
+//countL = countR -> balanced
+//balanced = 0 -> 1 -> 2 -> 3 -> 4
 
 balancedStrings("RLRRRLLRLL"); //2 - "RL", "RRRLLRLL"
 
