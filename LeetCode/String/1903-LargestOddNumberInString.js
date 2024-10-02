@@ -2,6 +2,9 @@
 //given a string 'num'- representing a large integer
 //return the largest-valued odd intefer as a string that is a non-empty substring of num
 //or an empty string "" if no odd integer exists
+
+//Approach:
+//using parseInt for checking
 var largestOddNumInString = (num) => {
     let m = num.length;
 
@@ -10,6 +13,7 @@ var largestOddNumInString = (num) => {
 
     //checking from backwards
     for (let i = m - 1; i >= 0; i--) {
+        //odd string
         if (parseInt(num[i]) % 2 !== 0) return num.substring(0, i + 1);
     }
     
@@ -31,6 +35,29 @@ largestOddNumInString("52"); //"5"
 //substring(0, 1) = "5"
 
 largestOddNumInString("4206"); //""
+//m = 4
+//4 % 2 = 0 -> even
+
+//i = 3
+//"4 2 0 6"
+//       ^
+//parseInt(6) % 2 = 0 -> even
+
+//i = 2
+//"4 2 0 6"
+//     ^
+//parseInt(0) % 2 = 0 -> even
+
+//i = 1
+//"4 2 0 6"
+//   ^
+//parseInt(2) % 2 = 0 -> even
+
+//i = 0
+//"4 2 0 6"
+// ^
+//parseInt(4) % 2 = 0 -> even
+//''
 
 largestOddNumInString("35427"); //"35427" - already an odd number
 //m = 5
