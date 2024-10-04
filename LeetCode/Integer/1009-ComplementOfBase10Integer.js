@@ -15,14 +15,14 @@ var complementBase10Integer = (n) => {
     return parseInt(complement, 2);
 }
 complementBase10Integer(5); //2 - 5 is "101" in binary, with complement "010" in binary
-//binary = 5 -> toString(2): 0101
-//complement: changing 1 to 0, 0 to 1 -> 0010
-//parseInt(0010) -> 2
+//binary = 5 -> toString(2): 101
+//complement: changing 1 to 0, 0 to 1 -> 010
+//parseInt(010) -> 2
 
 complementBase10Integer(7); //0 - 7 is "111" in binary, with complement "000" in binary
-//binary = 7 -> toString(2): 0111
-//complement: changing 1 to 0, 0 to 1 -> 0000
-//parseInt(0000) -> 0
+//binary = 7 -> toString(2): 111
+//complement: changing 1 to 0, 0 to 1 -> 000
+//parseInt(000) -> 0
 
 complementBase10Integer(10); //5 - 10 is "1010" in binary, with complement "0101" in binary
 //binary = 10 -> toString(2): 1010
