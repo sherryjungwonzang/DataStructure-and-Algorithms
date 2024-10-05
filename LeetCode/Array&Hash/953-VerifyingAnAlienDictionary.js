@@ -86,7 +86,7 @@ verifyAlienDictionary(words = ["word","world","row"], order = "worldabcefghijkmn
 //prev[-1] = curr[-1]: T && -1 < max(5, 4) = 5: T -> T     ||   prev[0] = curr[0]: T && 0 < max(5, 4) = 5: T -> T    || prev[1] = curr[1]: T && 1 < max(5, 4) = 5: T -> T     ||  prev[2] = curr[2]: T && 2 < max(5, 4) = 5: T -> T 
 
 //pointer = 3
-//prev[3]: "d" != curr[3]: "l": F && -1 < max(5, 4) = 5: T -> F 
+//prev[3]: "d" != curr[3]: "l": F && 3 < max(5, 4) = 5: T -> F 
 //4 > 3 -> false
 
 verifyAlienDictionary( words = ["apple","app"], order = "abcdefghijklmnopqrstuvwxyz"); //false
@@ -117,6 +117,6 @@ verifyAlienDictionary( words = ["apple","app"], order = "abcdefghijklmnopqrstuvw
 //prev[-1] = curr[-1]: T && -1 < max(5, 3) = 5: T -> T     ||   prev[0] = curr[0]: T && 0 < max(5, 3) = 5: T -> T    || prev[1] = curr[1]: T && 1 < max(5, 3) = 5: T -> T     ||  prev[2] = curr[2]: T && 2 < max(5, 3) = 5: T -> T 
 
 //pointer = 3
-//prev[3]: "l" != curr[3]: "undefined": F && -1 < max(5, 3) = 5: T -> F 
+//prev[3]: "l" != curr[3]: "undefined": F && 3 < max(5, 3) = 5: T -> F 
 //curr[3] = undefined -> false
 
