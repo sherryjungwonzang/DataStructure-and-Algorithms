@@ -7,7 +7,7 @@ var threeDivisors = (n) => {
 
     for (let i = 1; i <= n; i++) {
         //divisors
-        if (n % 1 === 0) count++;
+        if (n % i === 0) count++;
     }
 
     return count === 3;
