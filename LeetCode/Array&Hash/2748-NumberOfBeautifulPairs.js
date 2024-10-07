@@ -62,7 +62,7 @@ beautifulPairs([2,5,1,4]); //5
 //i = 0, j = 3 -> 2 & 4
 //fistDigit = 2
 //lastDigit = 4
-//gcd(2, 4) = 0 -> count = 0 -> 1 -> 2 -> 2
+//gcd(2, 4) != 1 -> count = 0 -> 1 -> 2 -> 2
 
 //[2, 5, 1, 4]
 //    i  j
@@ -105,4 +105,4 @@ beautifulPairs([11,21,12]); //2
 //i = 1, j = 2 -> 21 & 12
 //fistDigit = [0] = 2
 //lastDigit = 12 % 10 = 2
-//gcd(2, 2) = 0 -> count = 0 -> 1 -> 2 -> 2
+//gcd(2, 2) != 1 -> count = 0 -> 1 -> 2 -> 2
