@@ -18,10 +18,10 @@ var BSTToGreaterTree = (root) => {
         //starting with right
         traverse(root.right);
 
-        //calculating all root's sum
+        //adding with each root's value
         root.val += sum;
 
-        //updating
+        //updating sum for next sum
         sum = root.val;
 
         traverse(root.left);
