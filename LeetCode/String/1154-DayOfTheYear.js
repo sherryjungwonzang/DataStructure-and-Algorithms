@@ -12,9 +12,7 @@ var dayOfyear = (date) => {
     if (isLeap(year)) daysForMonth[1] = 29; 
 
     //calculating the whole number of month
-    for (let i = 0; i < month - 1; i++) {
-        res += daysForMonth[i];
-    }
+    for (let i = 0; i < month - 1; i++) res += daysForMonth[i];
 
     //checking leap year
     function isLeap (year) {
