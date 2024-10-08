@@ -8,7 +8,7 @@ var dayOfyear = (date) => {
     let daysForMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
     let res = 0;
 
-    //leap year
+    //leap year - Febuary
     if (isLeap(year)) daysForMonth[1] = 29; 
 
     //calculating the whole number of month
