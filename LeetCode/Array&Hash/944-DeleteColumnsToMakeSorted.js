@@ -22,7 +22,7 @@ var deleteColumns = (strs) => {
             if (strs[i][j] > strs[i + 1][j]) { //[row][col] > [row + 1][col]
                 count++;
 
-                break;
+                break; //to move to next column
             }
         }
     }
