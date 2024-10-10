@@ -7,7 +7,8 @@ var strictlySmallerGreaterCount = (nums) => {
     let count = 0;
 
     nums.forEach(num => {
-        if (cum < max && num > min) count++;
+        //checking smaller and greater elements
+        if (num < max && num > min) count++;
     });
 
     return count;
