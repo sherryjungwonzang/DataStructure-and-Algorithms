@@ -7,30 +7,33 @@
 //a leaf is a node with no children
 
 //Approach:
-//using DFS with recursive call on left and right child
+//using DFS with backtracking
 var pathSum2 = (root, targetSum) => {
-  let res = [];
+    let res = [];
 
-  //DFS
-  function dfs(root, currSum, currArr) {
-      if (root === null) return [];
+    //DFS
+    function dfs(root, currSum, currArr) {
+        //base case
+        if (root === null) return [];
 
-      currSum += root.val;
-      currArr.push(root.val);
+        currSum += root.val;
 
-      //leaf node
-      if (!root.left && !root.right && currSum === targetSum) {
-          res.push([...currArr]);
-      }
+        currArr.push(root.val);
 
-      //recursive call
-      dfs(root.left, currSum, currArr);
-      dfs(root.right, currSum, currArr);
-      currArr.pop(); //backtracking
-  }
-  dfs(root, 0, []);
+        //leaf node
+        if (!root.left && !root.right && currSum === targetSum) res.push([...currArr]);
 
-  return res;
+        //recursive call
+        dfs(root.left, currSum, currArr);
+        dfs(root.right, currSum, currArr);
+
+        //backtracking
+        currArr.pop();
+    }
+
+    dfs(root, 0, []);
+
+    return res;
 }
 //TC: O(n^2)
 //SC: O(n)
