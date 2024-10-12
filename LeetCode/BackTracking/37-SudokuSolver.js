@@ -6,90 +6,86 @@
 //each of the digits 1-9 must occur exactly once in each column
 //each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid
 //the '.' character indicates empty cells
-const EMPTY = ".";
-const possibleNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-//helper function - isValid
-function isValid(num, row, col, board) {
-  //check col and row & 3x3 grid
-  for (let i = 0; i < board.length; i++) {
-    //iterating column || iterating row
-    if (board[row][i] === num || board[i][col] === num) { //meaning duplicates
-      return false;
-    }
-
-    //checking 3x3 matrix
-    let startRow = Math.floor(row / 3) * 3;
-    let startCol = Math.floor(col / 3) * 3;
-
-    //looping through startRow and startCol
-    for (let i = startRow; i < startRow + 3; i++) { //since we only need three within the row
-      for (let j = startCol; j < startCol + 3; j++) { //since we only need three within the col
-        if (board[i][j] === num) { //duplicates
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-}
-
+//Approach:
+//using recursion with backtracking
 var sudokuSolver = (board) => {
-  //to find  all positions that are empty
-  let emptySpaces = [];
+    let m = board.length;
+    const EMPTY = ".";
+    const possibleNumbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    let emptySpaces = []; //all positions are empty
 
-  //looping through the board
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board.length; j++) {
-      if (board[i][j] === EMPTY) {
-        emptySpaces.push({row: i, col: j}); //for extraction later
-      }
-    }
-  }
+    //looping board
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < m; j++) {
+            //empty
+            if (board[i][j] === EMPTY) emptySpaces.push({ row: i, col: j });
+        }
+    };
 
-  //backtracking function
-  function recurse(emptySpaceIndex) {
-    //base case - when we are at the end
-    if (emptySpaceIndex >= emptySpaces.length) {
-       return true;
-    }
+    //validating
+    function isValid(num, row, col, board) {
+        let startRow = Math.floor(row / 3) * 3;
+        let startCol = Math.floor(col / 3) * 3;
 
-    //extract the row and col of empty spaces
-    const {row, col} = emptySpaces[emptySpaceIndex];
+        //checking 3 x 3 grid
+        for (let i = 0; i < m; i++) {
+            //duplicates
+            if (board[row][i] === num || board[i][col] === num) return false;
 
-    //to check whether it is a valid integer or not
-    for (let i = 0; i < possibleNumbers.length; i++) {
-      let num = possibleNumbers[i];
-
-      //check if it is valid
-      if (isValid(num, row, col, board)) {
-        board[row][col] = num;
-
-        //recurse - move to the next position
-        if (recurse(emptySpaceIndex + 1)) {
-          return true;
+            //checking 3 x 3 matrix
+            for (let i = startRow; i < startRow + 3; i++) { //row
+                for (let j = startCol; j < startCol + 3; j++) { //col
+                    //duplicates
+                    if (board[i][j] === num) return false;
+                }
+            }
         }
 
-        //backtracking
-        board[row][col] = EMPTY;
-      }
+        return true;
     }
-    return false;
-  }
-  recurse(0);
 
-  return board;
+    //backtracking
+    function recurse(emptySpaceIndex) {
+        //base case
+        if (emptySpaceIndex >= emptySpaces.length) return true;
+
+        //extracting row and col
+        let {row, col} = emptySpaces[emptySpaceIndex];
+
+        //checking validation
+        for (let i = 0; i < possibleNumbers.length; i++) {
+            let num = possibleNumbers[i];
+
+            //validation
+            if (isValid(num, row, col, board)) {
+                board[row][col] = num;
+
+                //recursive calls
+                if (recurse(emptySpaceIndex + 1)) return true;
+
+                //backtracking
+                board[row][col] = EMPTY;
+            }
+        }
+
+        return false;
+    };
+
+    recurse(0);
+
+    return board;
 }
 sudokuSolver(
-  [["5","3",".",".","7",".",".",".","."],
-   ["6",".",".","1","9","5",".",".","."],
-   [".","9","8",".",".",".",".","6","."],
-   ["8",".",".",".","6",".",".",".","3"],
-   ["4",".",".","8",".","3",".",".","1"],
-   ["7",".",".",".","2",".",".",".","6"],
-   [".","6",".",".",".",".","2","8","."],
-   [".",".",".","4","1","9",".",".","5"],
-   [".",".",".",".","8",".",".","7","9"]]
+    [["5","3",".",".","7",".",".",".","."],
+     ["6",".",".","1","9","5",".",".","."],
+     [".","9","8",".",".",".",".","6","."],
+     ["8",".",".",".","6",".",".",".","3"],
+     ["4",".",".","8",".","3",".",".","1"],
+     ["7",".",".",".","2",".",".",".","6"],
+     [".","6",".",".",".",".","2","8","."],
+     [".",".",".","4","1","9",".",".","5"],
+     [".",".",".",".","8",".",".","7","9"]]
 ); 
 //[["5","3","4","6","7","8","9","1","2"],
 // ["6","7","2","1","9","5","3","4","8"],
