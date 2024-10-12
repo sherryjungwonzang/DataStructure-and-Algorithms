@@ -4,32 +4,30 @@
 
 //the graph is given as follows:
 //graph[i] is a list of all nodes you can visit from node i - if there is a directed edge from node i to node graph[i][j]
+
+//Approach:
+//using backtracking
 var allPathsSourceTarget = (graph) => {
-  let res = [];
+    let res = [];
 
-  //backtracking function
-  function backtrack(currNode, currArr) {
-      //add currnode immediately
-      currArr.push(currNode);
+    //backtracking
+    function backtrack(currNode, currArr) {
+        let neighbors = graph[currNode];
 
-      //check 0 to n-1
-      if (currNode === graph.length - 1) {
-          res.push([...currArr]);
-      }
+        currArr.push(currNode);
 
-      //setting neighbors - graph was neighbor list
-      let neighbors = graph[currNode];
+        if (currNode === graph.length - 1) res.push([...currArr]);
 
-      //loop through neighbors
-      for (let n of neighbors) {
-          backtrack(n, currArr);
-      }
-      //backtracking
-      currArr.pop();
-  }
-  backtrack(0, []);
+        //looping
+        for (let neighbor of neighbors) backtrack(neighbor, currArr);
 
-  return res;
+        //backtracking
+        currArr.pop();
+    }
+
+    backtrack(0, []);
+
+    return res;
 }
 allPathsSourceTarget([[1,2], [3], [3], []]); //[[0,1,3], [0,2,3]]
 //there are two paths: 9 -> 1 -> 3 and 0 -> 2 -> 3
