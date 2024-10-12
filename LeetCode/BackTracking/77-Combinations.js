@@ -4,28 +4,29 @@
 //may return the answer in any order
 
 //Approach:
-//using DFS with recursion
+//using DFS with backtracking
 var combinations = (n, k) => {
-    //to store all possible solutions
-    let res = [];
-    
-    //DFS recursion 
+    let res = []; 
+
+    //DFS
     function dfs(index, curr) {
-      //base case
-      if (curr.length === k) res.push([...curr]);
-  
-      for (let i = index; i <= n; i++) {
-        curr.push(i);
-  
-        //recurse
-        dfs(i + 1, curr); //recurse on the next position
-  
-        //backtracking
-        curr.pop();
-      }
+        //base case
+        if (curr.length === k) res.push([...curr]);
+
+        //traversing
+        for (let i = index; i <= n; i++) {
+            curr.push(i);
+
+            //recursive calls
+            dfs(i + 1, curr);
+
+            //backtracking
+            curr.pop();
+        }
     }
-    dfs(1, []); //cause this is starting from 1 
-  
+
+    dfs(1, []); //starting from 1
+
     return res;
 }
 combinations(4,2); //[[1,2], [1,3], [1,4], [2,3], [2,4], [3,4]] - there are 4 choose 2 = 6 total combinations
