@@ -33,23 +33,23 @@ var lexicographicalSmallestPalindrome = (s) => {
 //TC: O(n)
 //SC: O(n)
 lexicographicalSmallestPalindrome("egcfe"); //"efcfe" - operation takes 1
-//"e g c f e"
-// L       R    -> e = e: palindrome
+//words = [ e, g, c, f, e]
+//          L           R    -> e = e: palindrome
 
-//"e g c f e"
-//   L   R    -> g != f: not palindrome
+//[ e, g, c, f, e]
+//     L      R    -> g != f: not palindrome
 //g > f -> changing g to f
-//"e f c f e"
+//[ e, f, c, f, e] -> "efcfe"
 
 lexicographicalSmallestPalindrome("abcd"); //"abba" - operations takes 2
-//"a b c d"
-// L     R    -> a != d: not palindrome
+//words = [ a, b, c, d ]
+//          L        R    -> a != d: not palindrome
 //a < d -> changing d to a
-//"a b c a"
+//[ a, b, c, a ]
 
-//"a b c a"
-//   L  R    -> b != c: not palindrome
+//[ a, b, c, a ]
+//     L  R    -> b != c: not palindrome
 //b < c -> changing c to b
-//"a b b a"
+//[ a, b, b, a ] -> "abba"
 
 lexicographicalSmallestPalindrome("seven"); //"neven" - operations takes 1
