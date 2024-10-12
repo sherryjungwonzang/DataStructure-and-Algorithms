@@ -16,37 +16,40 @@
 
 //  *     0     #
 //  +     -     ^
+
+//Approach:
+//using recursion with backtracking
 var letterCombinations = (digits, start = 0) => {
-  //mapping number and characters
-  const map = {
-    '2': ['a', 'b', 'c'],
-    '3': ['d', 'e', 'f'],
-    '4': ['g', 'h', 'i'],
-    '5': ['j', 'k', 'l'],
-    '6': ['m', 'n', 'o'],
-    '7': ['p', 'q', 'r', 's'],
-    '8': ['t', 'u', 'v'],
-    '9': ['w', 'x', 'y', 'z'],
-  }
-
-  //base case
-  if (digits === "") return [];
-  if (start >= digits.length) return [''];
-
-  const digit = digits[start];
-  const letters = map[digit];
-  const combinations = [];
-
-  //recursive calls
-  const suffixCombinations = letterCombinations(digits, start + 1);
-
-  //combining letters
-  for (const letter of letters) {
-    for (const suffix of suffixCombinations) {
-      combinations.push(letter + suffix);
+    const map = {
+        '2': ['a', 'b', 'c'],
+        '3': ['d', 'e', 'f'],
+        '4': ['g', 'h', 'i'],
+        '5': ['j', 'k', 'l'],
+        '6': ['m', 'n', 'o'],
+        '7': ['p', 'q', 'r', 's'],
+        '8': ['t', 'u', 'v'],
+        '9': ['w', 'x', 'y', 'z']
     }
-  }
-  return combinations;
+
+    //base case
+    if (digits === "") return [];
+    if (start >= digits.length) return [''];
+
+    let digit = digits[start];
+    let letters = map[digit];
+    let combinations = [];
+
+    //recursive calls
+    let suffixCombinations = letterCombinations(digits, start + 1);
+
+    //combinin letters
+    for (let letter of letters) {
+        for (let suffix of suffixCombinations) {
+            combinations.push(letter + suffix);
+        }
+    }
+
+    return combinations;
 }
 letterCombinations("23"); //["ad","ae","af","bd","be","bf","cd","ce","cf"]
 
