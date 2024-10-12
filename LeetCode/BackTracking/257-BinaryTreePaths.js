@@ -3,34 +3,31 @@
 //return all root-to-leaf paths in any order
 
 //Approach:
-//using DFS with Recursive in each left and right child
+//using DFS with backtracking
 var binaryTreePaths = (root) => {
-  //edge case
-  if (!root) return [];
+    //base case
+    if (!root) return [];
 
-  let res = [];
+    let res = [];
 
-  //DFS
-  function dfs(root, path) {
-      path.push(root.val);
+    //DFS
+    function dfs(root, path) {
+        path.push(root.val);
 
-      //checking leaf node
-      if (!root.left && !root.right) {
-          //update res in "1->2->5" format
-          //.join(): convert it from an array to string and join with "->"
-          res.push(path.join("->"));
-      }
+        //checking leaf node
+        if (!root.left && !root.right) res.push(path.join("->")); 
 
-      //recurse down to left and right
-      if (root.left) dfs(root.left, path);
-      if (root.right) dfs(root.right, path);
+        //recurse to child nodes
+        if (root.left) dfs(root.left, path);
+        if (root.right) dfs(root.right, path);
 
-      //backtracking
-      path.pop();
-  }
-  dfs(root, []); //[] for current path
+        //backtracking
+        path.pop();
+    }
 
-  return res;
+    dfs(root, []); //[] for current path
+
+    return res;
 }
 binaryTreePaths([1,2,3,null,5]); //["1->2->5","1->3"]
 //   1
