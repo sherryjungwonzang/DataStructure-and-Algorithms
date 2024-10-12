@@ -6,40 +6,41 @@
 //return the total sum of all root-to-leaf numbers
 //test cases are generated so that the answer will fit in 32-bit integer
 //a leaf node is a node with no children
+
+//Approach:
+//using recursion with backtracking
 var sumRootToLeaf = (root) => {
-  let res = [];
+    let res = [];
+    let nums = 0;
 
-  //recurse function
-  function recurse(root, currArr) {
-      //base case
-      if (root === null) return 0;
+    //recursion
+    function recurse(root, currArr) {
+        //base case
+        if (!root) return 0;
 
-      currArr.push(root.val);
+        currArr.push(root.val);
 
-      //on leaf node
-      if (!root.left && !root.right) {
-          //converting the array into numbers
-          let newNum = Number(currArr.join(""));
-          res.push(newNum);
-      }
+        //leaf node
+        if (!root.left && !root.right) {
+            let newNum = Number(currArr.join("")); //converting array into numbers
 
-      //recursive call
-      recurse(root.left, currArr);
-      recurse(root.right, currArr);
+            res.push(newNum);
+        }
 
-      //backtracking
-      currArr.pop();
-  }
+        //recursive calls on child
+        recurse(root.left, currArr);
+        recurse(root.right, currArr);
 
-  recurse(root, []);
+        //backtracking
+        currArr.pop();
+    }
 
-  //adding all numbers from res
-  let nums = 0;
-  for (let i = 0; i < res.length; i++) {
-      nums += res[i];
-  }
+    recurse(root, []);
 
-  return nums;
+    //adding all nums
+    for (let i = 0; i < res.length; i++) nums += res[i];
+
+    return nums;
 }
 //TC: O(n) - visit each node once
 //SC: O(n) - store all values within currArr
