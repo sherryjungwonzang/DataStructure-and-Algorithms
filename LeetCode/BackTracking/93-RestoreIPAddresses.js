@@ -1,4 +1,4 @@
-//93. Restore IP aadresses
+//93. Restore IP addresses
 //a valid IP address consists of exactly four integers separated  by single dots
 //each integer is between 0 and 255 and connect have leading zeros
 //for example, "0.1.2.201" and "192.168.1.1" are valid IP addresses,
@@ -10,36 +10,40 @@
 //you many return the valid IP addresses in any order
 
 //Approach:
-//using backtracking and DFS
+//using DFS with backtracking
 var restoreIPAddresses = (s) => {
-  let res = [];
+    let res = [];
 
-  //DFS
-  function dfs(arr, str) {
-    //cannot above 3
-    if (arr.length === 3) {
-      if (isValid(str)) res.push([...arr, str]);
-      return;
-    }
-    
-    for (let i = 1; i < 4; i++) {
-      let subStr = str.slice(0, i);
+    //DFS
+    function dfs(arr, str) {
+        //base case
+        if (arr.length === 3) {
+            if (isValid(str)) res.push([...arr, str]);
 
-      if (!isValid(subStr)) continue;
-      dfs([...arr, subStr], str.slice(i));
-    }
-  };
+            return;
+        }
 
-  function isValid(str) {
-    if (+str > 255 || !str.length) return false;
-    if (str.length >= 2 && str[0] === '0') return false;
+        for (let i = 1; i < 4; i++) {
+            let subStr = str.slice(0, i);
 
-    return true;
-  };
+            if (!isValid(subStr)) continue;
 
-  dfs([], s);
+            dfs([...arr, subStr], str.slice(i));
+        }
+    };
 
-  return res.map(x => x.join('.'));
+    //checking validation
+    function isValid(str) {
+        //not valid cases
+        if (+str > 255 || !str.length) return false;
+        if (str.length >= 2 && str[0] === '0') return false;
+
+        return true;
+    };
+
+    dfs([], s);
+
+    return res.map(x => x.join('.'));
 }
 restoreIPAddresses("25525511135"); //["255.255.11.135","255.255.111.35"]
 
