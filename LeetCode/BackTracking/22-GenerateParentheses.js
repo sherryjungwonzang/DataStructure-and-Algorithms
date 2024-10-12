@@ -3,36 +3,47 @@
 //write a function to generate all combinations of well-formed parentheses
 
 //Approach:
-//using recursive with one helper function
+//using recursive with backtracking
 var generateParentheses = (n) => {
-  let stack = [];
-  let res = [];
+    let stack = [];
+    let res = [];
 
-  function recurse (open, close) {
-      //found the all combos
-      if (open === close && open === n) {
-          res.push(stack.join(''));
-          return res;
-      }
+    //recursion
+    function recurse(open, close) {
+        //found all combos
+        if (open === close && open == n) {
+            res.push(stack.join(''));
 
-      //adding open
-      if (open < n) {
-          stack.push('(');
-          recurse(open + 1, close);
-          stack.pop(); //backtracking
-      }
+            return res;
+        }
 
-      //adding close
-      if (close < open) { //valid status for close
-          stack.push(")");
-          recurse(open, close + 1);
-          stack.pop(); //backtracking
-      }
-  }
+        //adding open
+        if (open < n) {
+            stack.push('(');
 
-  recurse(0, 0);
+            //recursive
+            recurse(open + 1, close);
 
-  return res;
+            //backtracking
+            stack.pop();
+        }
+
+
+        //adding close
+        if (close < open) {
+            stack.push(')');
+
+            //recursive
+            recurse(open, close + 1);
+
+            //backtracking
+            stack.pop();
+        }
+    }
+
+    recurse(0, 0);
+
+    return res;
 }
 generateParentheses(3); //["((()))","(()())","(())()","()(())","()()()"]
 
