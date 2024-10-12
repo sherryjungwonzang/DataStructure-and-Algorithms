@@ -9,30 +9,30 @@
 //it is guaranteed that the num of unique combinations that sum up to target is less than 150 combinations for the given input
 
 //Approach:
-//1. DP solution
-//2. DFS with recursive
-
-//2) DFS with recursive
+//using DFS with backtracking
 var combinationSum = (candidates, target) => {
-  let res = [];
+    let res = [];
 
-  //DFS
-  //arr - populate with the candidates that we have taken at each step
-  function dfs(index, currVal, curr) {
-    if (currVal < 0) return;
-    if (currVal === 0) res.push([...curr]); //as we find the combinations
+    //DFS
+    function dfs(index, currVal, curr) {
+        //base case
+        if (currVal < 0) return;
+        if (currVal === 0) res.push([...curr]); //found combinations
 
-    //each stage,  we are going to add 1 on i - avoid duplicates
-    for (let i = index; i < candidates.length; i++) {
-      curr.push(candidates[i]);
-      //carry out the recursive calls
-      dfs(i, currVal - candidates[i], curr);
-      curr.pop();
+        for (let i = index; i < candidates.length; i++) {
+            curr.push(candidates[i]);
+
+            //recursive calls
+            dfs(i, currVal - candidates[i], curr);
+
+            //backtracking
+            curr.pop();
+        }
     }
-  }
-  dfs(0, target, []);
 
-  return res;
+    dfs(0, target, []);
+
+    return res;
 }
 //TC: O(n^ ((T/M)+1)) - n is the num of candidates, t is the target value, m is the min value within candidates
 //SC: O(T/M)
