@@ -10,7 +10,7 @@
 //Approach:
 //using Greedy algorithm
 var distributeMoney = (money, children) => {
-    let res = 0;
+    let res = -1;
 
     //distribution
     for (let i = 0; i <= Math.floor(money / 8) && i <= children; i++) {
