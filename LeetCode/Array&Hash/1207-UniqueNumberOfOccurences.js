@@ -5,11 +5,12 @@
 //Approach:
 //using hashmap and set
 var uniqueNumOccurences = (arr) => {
-    //to collect frequency
     let freq = new Map();
 
+    //to collect frequency
     for (let num of arr) freq.set(num, (freq.get(num) || 0) + 1);
 
+    //only frequency
     let val = new Set(freq.values());
 
     return freq.size === val.size;
