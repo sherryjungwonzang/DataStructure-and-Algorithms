@@ -21,6 +21,7 @@ var predictWinner = (nums) => {
         //base case
         if (i === j) return nums[i];
 
+        //score difference
         let left = nums[i] - dfs(i + 1, j);
         let right = nums[j] - dfs(i, j - 1);
 
