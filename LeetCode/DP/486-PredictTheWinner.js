@@ -15,12 +15,13 @@
 //using DP
 var predictWinner = (nums) => {
     let m = nums.length;
-    let dp = Array.from(Array(m), () => Array(m).fill(0));
+    let dp = Array.from(Array(m), () => Array(m).fill(0)); //max score difference
 
     //DP
     for (let i = m - 1; i >= 0; i--) {
         for (let j = i; j < m; j++) {
-            if (i === j) dp[i][j] = nums[i]; //only one element left to pick
+            //only one element left to pick
+            if (i === j) dp[i][j] = nums[i]; 
             else dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);
         }
     }
@@ -53,5 +54,43 @@ predictWinner([1,5,2]); //false
 //                              (1 - 3, 2 - 4) = -2
 
 //dp[0][2] = -2: negative -> second player wins
+//false
 
 predictWinner([1,5,233,7]); //true
+//dp = 0, 0, 0, 0      1, 4, 229, 222 
+//     0, 0, 0, 0  ->  0, 5, 228, -221
+//     0, 0, 0, 0      0, 0, 233, 266
+//     0, 0, 0, 0      0, 0, 0, 7
+
+//i = 3, j = 3 -> pick one element left
+//dp[3][3] = 7
+
+//i = 2, j = 2 -> pick one element left
+//dp[2][2] = 233
+
+//i = 2, j = 3 -> dp[2][3] = max(nums[2] - dp[3][3], nums[3] - dp[2][2])
+//                              (233 - 7 = 226, 7 - 233 = -226) = 266
+
+//i = 1, j = 1 -> pick one element left
+//dp[1][1] = 5
+
+//i = 1, j = 2 -> dp[1][2] = max(nums[1] - dp[2][2], nums[2] - dp[1][1])
+//                              (5 - 233 = -228, 233 - 5 = 228) = 228
+
+//i = 1, j = 3 -> dp[1][3] = max(nums[1] - dp[2][3], nums[3] - dp[1][2])
+//                              (5 - 226 = -221, 7 - 228 = -221) = -221
+
+//i = 0, j = 0 -> pick one element left
+//dp[0][0] = 1
+
+//i = 0, j = 1 -> dp[0][1] = max(nums[0] - dp[1][1], nums[1] - dp[0][0])
+//                              (1 - 5 = -4, 5 - 1 = 4) = 4
+
+//i = 0, j = 2 -> dp[0][2] = max(nums[0] - dp[1][2], nums[2] - dp[0][1])
+//                              (1 - 228 = -227, 233 - 4 = 229) = 229
+
+//i = 0, j = 3 -> dp[0][3] = max(nums[0] - dp[1][3], nums[3] - dp[0][2])
+//                              (1 - -221 = 222, 7 - 229 = -222) = 222
+
+//dp[0][3] = 222: positive -> first player wins
+//true
