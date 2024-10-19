@@ -14,19 +14,21 @@
 //Approach:
 //using recursion
 var predictWinner = (nums) => {
+    let m = nums.length;
 
-    function recurse(i, j) {
-        //pick the same one
+    //DFS
+    function dfs(i, j) {
+        //base case
         if (i === j) return nums[i];
 
-        let left = nums[i] - recurse(i + 1, j);
-        let right = nums[j] - recurse(i, j - 1);
+        let left = nums[i] - dfs(i + 1, j);
+        let right = nums[j] - dfs(i, j - 1);
 
         return Math.max(left, right);
     }
 
     //non-negative: first player wins || negative: second player wins
-    return recurse(0, nums.length - 1) >= 0; 
+    return dfs(0, m - 1) >= 0;
 }
 //TC: O(2^n)
 //SC: O(n)
