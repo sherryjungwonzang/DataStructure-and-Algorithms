@@ -44,4 +44,4 @@ kItemsMaxSum(numOnes = 3, numZeros = 2, numNegOnes = 0, k = 4); //3
 //as k is left 1 -> checking numZeros
 //numZeros = 2 -> 1
 //k = 1 -> 0 
-//sum = 0 -> 1 -> 2 -> 3 -> 4
+//sum = 0 -> 1 -> 2 -> 3 : still3 since 0 does not affect to sum
