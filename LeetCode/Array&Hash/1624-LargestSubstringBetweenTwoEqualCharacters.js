@@ -23,48 +23,7 @@ var largestSubstring = (s) => {
 //SC: O(1)
 largestSubstring("acbzxya"); //5 - cbzxy
 //a c b z x y a
-//^
-//firstIndex = {
-//  a: 0,
-//}
-
-//a c b z x y a
-//  ^
-//firstIndex = {
-//  a: 0,
-//  c: 1,
-//}
-
-//a c b z x y a
-//    ^
-//firstIndex = {
-//  a: 0,
-//  c: 1,
-//  b: 2,
-//}
-
-
-//a c b z x y a
-//      ^
-//firstIndex = {
-//  a: 0,
-//  c: 1,
-//  b: 2,
-//  z: 3,
-//}
-
-//a c b z x y a
-//        ^
-//firstIndex = {
-//  a: 0,
-//  c: 1,
-//  b: 2,
-//  z: 3,
-//  x: 4,
-//}
-
-//a c b z x y a
-//          ^
+//^ ^ ^ ^ ^ ^ 
 //firstIndex = {
 //  a: 0,
 //  c: 1,
@@ -77,7 +36,7 @@ largestSubstring("acbzxya"); //5 - cbzxy
 //a c b z x y a
 //            ^
 //firstIndex = {
-//  a: 0,
+//  a: 0, <-
 //  c: 1,
 //  b: 2,
 //  z: 3,
@@ -85,7 +44,34 @@ largestSubstring("acbzxya"); //5 - cbzxy
 //  y: 5,
 //}
 //'a' is already exist -> updates res
-//res = -1 -> max(-1, 6 - 1) = 5
+//res = -1 -> max(-1, 6 - (0 - 1)) = 5
+
+largestSubstring("bcfayuia"); //3 - yui
+//b c f a y u i a
+//^ ^ ^ ^ ^ ^ ^
+//firstIndex = {
+//  b: 0,
+//  c: 1,
+//  f: 2,
+//  a: 3,
+//  y: 4,
+//  u: 5,
+//  i: 6,
+//}
+
+//b c f a y u i a
+//              ^
+//firstIndex = {
+//  b: 0,
+//  c: 1,
+//  f: 2,
+//  a: 3, <-
+//  y: 4,
+//  u: 5,
+//  i: 6,
+//}
+//'a' is already exist -> updates res
+//res = -1 -> max(-1, 7 - (3 - 1)) = 3
 
 largestSubstring("aa"); //0
 
