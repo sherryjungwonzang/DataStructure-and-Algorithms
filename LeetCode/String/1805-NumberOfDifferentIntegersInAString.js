@@ -18,6 +18,7 @@ var numDifferentIntegers = (word) => {
         if (num.length > 0) {
             let i = 0;
 
+            //leading zeros - need to move position
             while (num.charCodeAt(i) === zero) i++;
 
             //preserving the last 0 
