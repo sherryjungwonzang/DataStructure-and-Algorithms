@@ -2,15 +2,18 @@
 //given an binary array nums and an integer k
 //return true if all 1's are at least k places away from each other, otherwise return false
 var kLengthAway = (nums, k) => {
+    //initial setting
     let currLen = k;
 
     for (let num of nums) {
         if (num === 0) {
+            //increasing 0 length
             currLen++;
 
             continue;
         }
 
+        //if num is not 0
         if (currLen < k) return false;
 
         //resetting
