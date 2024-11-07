@@ -27,26 +27,14 @@ var absoluteFilePath = (input) => {
     let longest = 0;
     let map = { 0: 0 };
     let lines = input.split("\n"); //based on \n it is separating
-    console.log(lines)
-    console.log('--')
 
     for (let line of lines) {
         let fileName = line.replace(/\t/g, "");
-        console.log(line, fileName)
-        console.log('==')
-
         let depth = line.length - fileName.length;
-        console.log(line.length, fileName.length, depth)
-        console.log('++')
         
         //meaning reached out to file
         if (fileName.includes('.')) longest = Math.max(longest, map[depth] + fileName.length); 
         else map[depth + 1] = map[depth] + fileName.length + 1; //directory
-
-        console.log(longest)
-        console.log('^^')
-        console.log(map)
-        console.log('##')
     }
 
     return longest;
