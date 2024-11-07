@@ -30,9 +30,9 @@ equalOccurrences("abacbc"); //true
 //}
 
 //freq = 2
-//frequency[a] = 1 = freq -> true
-//frequency[b] = 1 = freq -> true
-//frequency[c] = 1 = freq -> true
+//frequency[a] = 2 = freq -> true
+//frequency[b] = 2 = freq -> true
+//frequency[c] = 2 = freq -> true
 //true
 
 equalOccurrences("aaabb"); //false
