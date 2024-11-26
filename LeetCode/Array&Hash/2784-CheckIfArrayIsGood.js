@@ -5,9 +5,6 @@
 //for example, base[1] = [1, 1] and base[3] = [1, 2, 3, 3]
 //return true if the given array is good, otherwise return false
 //note: A permutation of integers represents an arrangement of these numbers
-
-//Approach:
-//using map
 var isArrayGood = (nums) => {
     let max = Math.max(...nums);
     let freq = Array(max + 1).fill(0);
