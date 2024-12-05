@@ -21,20 +21,6 @@ countDistinctNumbers(n = 5); //4
 //-> 5 % 4 = 1
 //4
 
-//-> 4 % 3 = 1
-//3
-
-//-> 3 % 2 = 1
-//2
-
-//-> n = 2 -> return 1
-
-//4
-
 countDistinctNumbers(n = 3); //2
 //n = 3 -> 3 % 2 = 1
-//2
-
-//-> n = 2 -> return 1
-
 //2
